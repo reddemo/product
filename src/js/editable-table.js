@@ -16,13 +16,16 @@ var EditableTable = function (target) {
             }
 
             function editRow(oTable, nRow) {
-                jQuery(nRow).addClass('editing');
+                var jqRow=jQuery(nRow);
                 var aData = oTable.fnGetData(nRow);
                 var jqTds = jQuery('>td', nRow);
+                console.log(jqTds)
                 var jqThs= jQuery('thead th',target);
+
+                jqRow.addClass('editing');
                 jqTds.each(function(name,value,entry){
                     if(jqThs.eq(name).hasClass('editale-property')){
-                        jqTds[name].innerHTML='<input type="text" class="form-control small" value="' + aData[name] + '">';
+                        jqTds[name].innerHTML='<input type="text" name="'+jqThs.eq(name).attr('x-name')+'" class="form-control small" value="' + aData[name] + '">';
                     }
                     
                 });
@@ -139,7 +142,6 @@ var EditableTable = function (target) {
                 var jqTds = jQuery('td', nRow);
                 var nRow=$(this).closest('tr').get(0);
                 var jqThs= jQuery('thead th',target);
-                console.log(jqThs,jqTds);
                 jqTds.each(function(name,value,entry){
                     if(jqThs.eq(name).hasClass('editale-property')){
                         oTable.fnUpdate(jqTds.eq(name).find('input').val(),nRow,name,false)
