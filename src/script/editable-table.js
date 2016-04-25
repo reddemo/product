@@ -162,6 +162,10 @@ var EditableTable = function(options) {
 
                             oTable.fnDraw();
                             nEditing = null;
+                            $("#bang-alert").modal({
+                                title:'信息回执',
+                                body:'信息已正确提交'
+                            });
                         }else{
                             $("#bang-alert").modal({
                                 title:'发生了错误',
