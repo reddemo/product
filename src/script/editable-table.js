@@ -137,6 +137,11 @@ var EditableTable = function(options) {
                     /* Currently editing - but not this row - restore the old before continuing to edit mode */
                     alert('开始新的任务前请先结束当前任务!');
                 }
+                
+                $("#bang-edit").modal({
+                                title:'信息回执',
+                                body:'信息已正确提交'
+                            });
 
             });
             jqWrapper.on('click', '.only-editable-table .save', function(e) {
