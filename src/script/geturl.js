@@ -6,13 +6,17 @@
  * @return   {[Promise]}                     [description]
  */
 function getUrl(url){
-    return Promise.resolve(
-    	$.ajax(
-    		_.merge({},{
-    			//default props
-    	
-    			},url)
-    		)
-    	)
-    );
+	_.extend(url.headers||(url.headers={}),{
+		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	});
+	var options={};
+	_.extend(
+    			options,
+    			{
+    				//default props
+					type:'post',
+					dataType:'json'
+    			},
+    			url);
+    return Promise.resolve($.ajax(options));
 }

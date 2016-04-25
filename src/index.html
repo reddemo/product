@@ -19,22 +19,27 @@
   <script src="js/html5shiv.js"></script>
   <script src="js/respond.min.js"></script>
   <![endif]-->
-   <style type="text/css">
-        .alike{
-            background-color: #F9F9F9;
-            border:none;
-        }
-        .alike:hover{
-            text-decoration:underline;
-        }
-        .noa:hover{
-            text-decoration: none;
-        }
-   </style>
+    <style type="text/css">
+    .alike {
+        background-color: #F9F9F9;
+        border: none;
+    }
+    
+    .alike:hover {
+        text-decoration: underline;
+    }
+    
+    .noa:hover {
+        text-decoration: none;
+    }
+    #loading-container .spinner{
+        display: inline-block;
+    }
+    </style>
 </head>
 
 <body class="sticky-header left-side-collapsed">
-    <section>
+    <section id="bang-container">
         <!-- left side start-->
         <div class="left-side sticky-left-side bang-sider">
             <!--logo and iconic logo start-->
@@ -129,7 +134,7 @@
             </div>
             <!-- page heading end-->
             <!--body wrapper start-->
-            <div class="wrapper bang-wrapper">
+            <div class="wrapper bang-wrapper" id="loading-container" style="text-align:center;">
                 <div class="row" id="bang-gift">
                     <div class="col-sm-12">
                         <section class="panel">
@@ -144,7 +149,7 @@
                                 <div class="adv-table editable-table ">
                                     <div class="clearfix">
                                         <div class="btn-group">
-                                            <button id="editable-sample_new"  class="editable-table-adder btn btn-primary">
+                                            <button id="editable-sample_new" class="editable-table-adder btn btn-primary">
                                                 新增奖品 <i class="fa fa-plus"></i>
                                             </button>
                                             <ul class="pager" style="display:inline-block;margin:0 60px;">
@@ -207,6 +212,24 @@
                         </section>
                     </div>
                 </div>
+                <div class="row">
+                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="bang-alert" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                                    <h4 class="modal-title"></h4>
+                                </div>
+                                <div class="modal-body">
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger"> Ok</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!--body wrapper end-->
             <!--footer section start-->
@@ -232,11 +255,15 @@
     <script src="js/es6-promise.min.js"></script>
     <script src="js/underscore.min.js"></script>
     <!-- END JAVASCRIPTS -->
-
-
     <!--script for editable table-->
+    <script src="script/underscore.js"></script>
+    <script src="script/spin.js"></script>
+    <script src="script/loading.js"></script>
     <script src="script/editable-table.js"></script>
+    <script src="script/modal.js"></script>
+    <script src="script/config.js"></script>
     <script src="script/geturl.js"></script>
+    <script src="script/http.js"></script>
     <script src="script/app.js">
     </script>
 </body>
