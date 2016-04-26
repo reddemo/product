@@ -14,29 +14,45 @@
     <link href="css/fonts.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet">
+    <link href="style/common.css" rel="stylesheet">
+    <link href="style/style.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
   <script src="js/html5shiv.js"></script>
   <script src="js/respond.min.js"></script>
   <![endif]-->
-    <style type="text/css">
-    .alike {
-        background-color: #F9F9F9;
-        border: none;
-    }
-    
-    .alike:hover {
-        text-decoration: underline;
-    }
-    
-    .noa:hover {
-        text-decoration: none;
-    }
-    
-    #loading-container .spinner {
-        display: inline-block;
-    }
-    </style>
+    <script type="text/tpl" id="formhtml">
+        <li class="list-group-item entry" x-name="<%=name%>">
+            <span class="btn btn-info popovers mgr20px" data-trigger="hover" data-placement="bottom" data-content="type:text" data-original-title="name:<%=name%>">
+                <%=text%>
+            </span>
+            <span class="" href="#">
+            <%_.each(attrs,function(v,k,c){%>
+                <div class="inline-block mgr20px">
+                    <span class="label label-default">
+                        <%=v.text%>
+                    </span>
+            <sup class="close rounded  small">
+                    </sup>
+            </div>
+            <%});%>
+                </span>
+                <div class="btn-group select floatright">
+                    <button data-toggle="dropdown" class="btn btn-primary btn-sm dropdown-toggle">
+                        <span style="width: 70px;" class="dropdown-label">自定义属性</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu text-left text-sm">
+                        <li><a href="#">必填</a></li>
+                        <li><a href="#">中文</a></li>
+                        <li><a href="#">最小</a></li>
+                        <li><a href="#">最大</a></li>
+                    </ul>
+                </div>
+                <span class="close rounded removeEntry">
+          </span>
+        </li>
+    </script>
 </head>
 
 <body class="sticky-header left-side-collapsed">
@@ -126,8 +142,8 @@
                     <div class="col-md-12">
                         <!--breadcrumbs start -->
                         <ul class="breadcrumb panel">
-                            <li><a href="#"><i class="fa fa-home"></i> 买车帮活动</a></li>
-                            <li class="active">录入奖品</li>
+                            <li><a href="#"><i class="fa fa-home"></i> 专题表单</a></li>
+                            <li class="active">表单生成</li>
                         </ul>
                         <!--breadcrumbs end -->
                     </div>
@@ -137,108 +153,89 @@
             <!--body wrapper start-->
             <div class="wrapper bang-wrapper">
                 <div class="row">
-                    <form class="form-inline" role="form" style="margin-left:30px;margin-bottom:10px;">
-                        <div class="form-group">
-                            <label for="exampleInputEmail2">姓名:</label>
-                            <input type="email" class="form-control" id="exampleInputEmail2" placeholder="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword2">手机号:</label>
-                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="phone">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword2">身份证号:</label>
-                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="id">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword2">品牌:</label>
-                            <input type="password" class="form-control" id="exampleInputPassword2" placeholder="brand">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword2">品牌:</label>
-                            <select class="form-control m-bot15" id="exampleInputPassword23" style="position:relative;top:8px;">
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">搜索</button>
-                    </form>
-                </div>
-                <div class="row" id="bang-gift">
-                    <div class="col-sm-12">
-                        <section class="panel">
-                            <header class="panel-heading">
-                                奖品列表
-                                <span class="tools pull-right">
-                        <a href="javascript:;" class="fa fa-chevron-down"></a>
-                        <a href="javascript:;" class="fa fa-times"></a>
-                     </span>
+                    <div class="mail-box">
+                        <aside class="mail-nav mail-nav-bg-color">
+                            <header class="header">
+                                <h4>表单</h4> </header>
+                            <div class="mail-nav-body">
+                                <ul class="nav nav-pills nav-stacked mail-navigation">
+                                    <li class="active">
+                                        <a href="mail.html"> <i class="fa fa-inbox"></i> 用户 <span class="label label-danger pull-right inbox-notification">4</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#"> <i class="fa fa-envelope-o"></i> 车</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"> <i class="fa fa-certificate"></i> 经销商</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- <footer class="text-center">
+                                <div class="btn-group">
+                                    <a href="javascript:;" class="btn mini btn-default">
+                                        <i class="fa fa-power-off"></i>
+                                    </a>
+                                </div>
+                                <div class="btn-group">
+                                    <a href="javascript:;" class="btn mini btn-default">
+                                        <i class="fa fa-cog"></i>
+                                    </a>
+                                </div>
+                            </footer> -->
+                        </aside>
+                        <section class="mail-box-info">
+                            <header class="header">
+                                <div class="btn-toolbar">
+                                    <!-- <div class="btn-group select standard-entry">
+                                        <button data-toggle="dropdown" class="btn btn-primary btn-sm dropdown-toggle">
+                                            <span style="width: 70px;" class="dropdown-label">标准对象</span>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu text-left text-sm">
+                                            <li><a href="#">手机号</a></li>
+                                            <li><a href="#">姓名</a></li>
+                                            <li><a href="#">婚否</a></li>
+                                            <li><a href="#">要求</a></li>
+                                        </ul>
+                                    </div> -->
+                                    <a href="javascript:;" class="btn btn-danger  btn-sm" id="add-max">提交</a>
+                                </div>
                             </header>
-                            <div class="panel-body">
-                                <div class="adv-table editable-table ">
-                                    <div class="clearfix">
-                                        <div class="btn-group">
-                                            <button id="editable-sample_new" class="editable-table-adder btn btn-primary">
-                                                新增奖品 <i class="fa fa-plus"></i>
-                                            </button>
-                                            <ul class="pager" style="display:inline-block;margin:0 60px;">
-                                                <li><a href="#">返回抽奖录入页面</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="btn-group pull-right">
-                                            <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">工具 <i class="fa fa-angle-down"></i>
-                                            </button>
-                                            <ul class="dropdown-menu pull-right">
-                                                <li><a href="#">打印</a></li>
-                                                <li><a href="#">导出PDF</a></li>
-                                                <li><a href="#">导出为表格</a></li>
-                                            </ul>
+                            <section class="pannel">
+                                <div class="form-group standard-entry">
+                                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">标准对象</label>
+                                    <div class="col-lg-10">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox1" value="option1" name="mb" x-text="手机号"> 手机号
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox2" value="option2" name="age" x-text="年龄"> 年龄
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" id="inlineCheckbox3" value="option3" name="name" x-text="姓名"> 姓名
+                                        </label>
+                                    </div>
+                                </div>
+                            </section>
+                            <section class="pannel">
+                                <div class="form-group standard-entry">
+                                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">扩展对象</label>
+                                    <div class="col-lg-10">
+                                        <div>
+                                            <div class="form-group" style="margin-bottom:-30px;">
+                                                <div class="col-lg-2">
+                                                    <input type="text" class="form-control" id="inputWarning">
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-primary" id="addExt" type="button">增加属性</button>
                                         </div>
                                     </div>
-                                    <div class="space15"></div>
-                                    <form action="a.php" method="post">
-                                        <table class="only-editable-table table table-striped table-hover table-bordered" id="editable-sample">
-                                            <thead>
-                                                <tr>
-                                                    <th x-value="-">ID</th>
-                                                    <th x-value="" class="editale-property" x-name="rang">奖品范围</th>
-                                                    <th x-value="" class="editale-property" x-name="name">奖品名称</th>
-                                                    <th x-value="-">创建时间</th>
-                                                    <th x-value="-">修改时间</th>
-                                                    <th x-value="-">创建人</th>
-                                                    <th x-value="-">修改人</th>
-                                                    <th class="action" x-value="<a class='edit' href='javascript:;'>编辑</a>
-                                                    <a class='delete' href='javascript:;'>删除</a>
-                                                    <a class='save' href='javascript:;'>保存</a>
-                                                    <a class='cancel' href='javascript:;'>取消编辑</a>">
-                                                        操作
-                                                    </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="">
-                                                    <td>1</td>
-                                                    <td>1-99</td>
-                                                    <td>车模</td>
-                                                    <td class="center">2016-03-30</td>
-                                                    <td class="center">2016-03-30</td>
-                                                    <td class="center">创建人</td>
-                                                    <td class="center">修改人</td>
-                                                    <td class="table-action">
-                                                        <a class="edit" href="javascript:;">编辑</a>
-                                                        <a class="delete" href="javascript:;">删除</a>
-                                                        <a class="save" href="javascript:;">
-                                                            保存
-                                                        </a>
-                                                        <a class="cancel" href="javascript:;">取消编辑</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </form>
                                 </div>
-                            </div>
+                            </section>
+                            <section class="mail-list">
+                                <ul class="list-group ">
+                                </ul>
+                            </section>
                         </section>
                     </div>
                 </div>
