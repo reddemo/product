@@ -57,6 +57,31 @@
           </span>
         </li>
     </script>
+    <script type="text/tpl" id="tr">
+        <tr data-tt-id="<%=id%>" <%=father? 'data-tt-parent-id="'+father+ '"':void 0%> class="leaf collapsed">
+            <td>
+                <span class="file ui-draggable">
+                    <a href="#"><%=name%></a>
+                </span>
+            </td>
+        </tr>
+    </script>
+    <script type="text/tpl" id="tbody">
+        <table id="example-advanced" class="treetable">
+            <caption>
+                <a href="#" onclick="jQuery('#example-advanced').treetable('expandAll'); return false;">展开</a>
+                <a href="#" onclick="jQuery('#example-advanced').treetable('collapseAll'); return false;">收起</a>
+            </caption>
+            <thead>
+                <tr>
+                    <th>招聘</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%=render(table)%>
+            </tbody>
+        </table>
+    </script>
 </head>
 
 <body class="sticky-header left-side-collapsed">
@@ -165,97 +190,92 @@
                         <thead>
                             <tr>
                                 <th>层级</th>
-                                <th>城市</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr data-tt-id="0" class="leaf collapsed">
                                 <td>
-                                    <span class="indenter" style="padding-left: 0px;"></span><span class="file ui-draggable">
-                                        新增一个城市
+                                    <span class="file ui-draggable">
+                                        <a href="#">新增一个城市</a>
                                     </span>
                                 </td>
-                                <td>城市</td>
                             </tr>
-                            <tr data-tt-id="1" class="leaf collapsed">
+                            <tr data-tt-id="1" class="branch ui-droppable  collapsed">
                                 <td>
-                                    <span class="indenter" style="padding-left: 0px;"></span><span class="file ui-draggable">
+                                    <span class="folder ui-draggable">
                                         北京
                                     </span>
                                 </td>
-                                <td>北京</td>
+                            </tr>
+                            <tr data-tt-id="1-0" data-tt-parent-id="1" class="leaf collapsed" style="display: none;">
+                                <td>
+                                    <span class="file ui-draggable">
+                                        <a href="#">新增一个部门</a>
+                                    </span>
+                                </td>
                             </tr>
                             <tr data-tt-id="2" class="branch ui-droppable collapsed">
                                 <td>
                                     <span class="folder ui-draggable">上海</span>
                                 </td>
-                                <td>上海</td>
+                            </tr>
+                            <tr data-tt-id="2-0" data-tt-parent-id="2" class="leaf collapsed" style="display: none;">
+                                <td>
+                                    <span class="file ui-draggable">
+                                        <a href="#">新增一个部门</a>
+                                    </span>
+                                </td>
                             </tr>
                             <tr data-tt-id="2-1" data-tt-parent-id="2" class="ui-droppable branch collapsed" style="display: none;">
                                 <td>
                                     <span class="folder ui-draggable">产品</span>
                                 </td>
-                                <td>上海</td>
+                            </tr>
+                            <tr data-tt-id="2-1-0" data-tt-parent-id="2-1" class="leaf collapsed" style="display: none;">
+                                <td>
+                                    <span class="file ui-draggable">
+                                        <a href="#">新增一个职位</a>
+                                    </span>
+                                </td>
                             </tr>
                             <tr data-tt-id="2-1-1" data-tt-parent-id="2-1" class="leaf collapsed" style="display: none;">
                                 <td>
-                                    <span class="file ui-draggable">产品经理</span>
+                                    <span class="folder ui-draggable">产品经理</span>
                                 </td>
-                                <td>上海</td>
                             </tr>
                             <tr data-tt-id="2-1-1-1" data-tt-parent-id="2-1-1" class="leaf collapsed" style="display: none;">
                                 <td>
-                                    <span class="file ui-draggable">招聘要求</span>
+                                    <span class="folder ui-draggable">招聘要求</span>
                                 </td>
-                                <td>上海</td>
+                            </tr>
+                            <tr data-tt-id="2-1-1-1-0" data-tt-parent-id="2-1-1-1" class="leaf collapsed" style="display: none;">
+                                <td>
+                                    <span class="file ui-draggable">
+                                        <a href="#">新增一个描述</a>
+                                    </span>
+                                </td>
                             </tr>
                             <tr data-tt-id="2-1-1-1-1" data-tt-parent-id="2-1-1-1" class="leaf collapsed" style="display: none;">
                                 <td>
                                     <span class="file ui-draggable">能吃苦</span>
                                 </td>
-                                <td>上海</td>
                             </tr>
-                            <tr data-tt-id="2-1-2" data-tt-parent-id="2-1" class="leaf collapsed" style="display: none;">
+                            <tr data-tt-id="2-1-1-2" data-tt-parent-id="2-1-1" class="leaf collapsed" style="display: none;">
                                 <td>
-                                    <span class="file ui-draggable">产品总监</span>
+                                    <span class="folder ui-draggable">职责描述</span>
                                 </td>
-                                <td>上海</td>
                             </tr>
-                            <tr data-tt-id="3" class="branch ui-droppable collapsed">
+                            <tr data-tt-id="2-1-1-2-0" data-tt-parent-id="2-1-1-2" class="leaf collapsed" style="display: none;">
                                 <td>
-                                    <span class="folder ui-draggable">广州</span>
+                                    <span class="file ui-draggable">
+                                        <a href="#">新增一个描述</a>
+                                    </span>
                                 </td>
-                                <td>广州</td>
                             </tr>
-                            <tr data-tt-id="3-1" data-tt-parent-id="3" class="ui-droppable branch collapsed" style="display: none;">
+                            <tr data-tt-id="2-1-1-2-1" data-tt-parent-id="2-1-1-2" class="leaf collapsed" style="display: none;">
                                 <td>
-                                    <span class="folder ui-draggable">产品</span>
+                                    <span class="file ui-draggable">能耐劳</span>
                                 </td>
-                                <td>广州</td>
-                            </tr>
-                            <tr data-tt-id="3-1-1" data-tt-parent-id="3-1" class="leaf collapsed" style="display: none;">
-                                <td>
-                                    <span class="file ui-draggable">产品经理</span>
-                                </td>
-                                <td>广州</td>
-                            </tr>
-                            <tr data-tt-id="3-1-1-1" data-tt-parent-id="3-1-1" class="leaf collapsed" style="display: none;">
-                                <td>
-                                    <span class="file ui-draggable">招聘要求</span>
-                                </td>
-                                <td>广州</td>
-                            </tr>
-                            <tr data-tt-id="3-1-1-1-1" data-tt-parent-id="3-1-1-1" class="leaf collapsed" style="display: none;">
-                                <td>
-                                    <span class="file ui-draggable">能吃苦</span>
-                                </td>
-                                <td>广州</td>
-                            </tr>
-                            <tr data-tt-id="3-1-2" data-tt-parent-id="3-1" class="leaf collapsed" style="display: none;">
-                                <td>
-                                    <span class="file ui-draggable">产品总监</span>
-                                </td>
-                                <td>广州</td>
                             </tr>
                         </tbody>
                     </table>
@@ -386,11 +406,11 @@
     <script src="script/jquery.ui.draggable.js"></script>
     <script src="script/jquery.ui.droppable.js"></script>
     <script src="script/jquery.treetable.js"></script>
+    <script src="script/render.js"></script>
     <script>
     $("#example-advanced").treetable({
         expandable: true
     });
-
     </script>
     <script src="script/underscore.js"></script>
     <script src="script/spin.js"></script>
