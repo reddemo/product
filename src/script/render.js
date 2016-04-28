@@ -9,4 +9,3 @@ var render=function recur(table){
 		}
 	},'');
 };
-var table_html=renderTable();

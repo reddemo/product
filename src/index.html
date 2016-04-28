@@ -181,104 +181,7 @@
             <!-- page heading end-->
             <!--body wrapper start-->
             <div class="wrapper bang-wrapper">
-                <div class="row">
-                    <table id="example-advanced" class="treetable">
-                        <caption>
-                            <a href="#" onclick="jQuery('#example-advanced').treetable('expandAll'); return false;">Expand all</a>
-                            <a href="#" onclick="jQuery('#example-advanced').treetable('collapseAll'); return false;">Collapse all</a>
-                        </caption>
-                        <thead>
-                            <tr>
-                                <th>层级</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr data-tt-id="0" class="leaf collapsed">
-                                <td>
-                                    <span class="file ui-draggable">
-                                        <a href="#">新增一个城市</a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr data-tt-id="1" class="branch ui-droppable  collapsed">
-                                <td>
-                                    <span class="folder ui-draggable">
-                                        北京
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr data-tt-id="1-0" data-tt-parent-id="1" class="leaf collapsed" style="display: none;">
-                                <td>
-                                    <span class="file ui-draggable">
-                                        <a href="#">新增一个部门</a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr data-tt-id="2" class="branch ui-droppable collapsed">
-                                <td>
-                                    <span class="folder ui-draggable">上海</span>
-                                </td>
-                            </tr>
-                            <tr data-tt-id="2-0" data-tt-parent-id="2" class="leaf collapsed" style="display: none;">
-                                <td>
-                                    <span class="file ui-draggable">
-                                        <a href="#">新增一个部门</a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr data-tt-id="2-1" data-tt-parent-id="2" class="ui-droppable branch collapsed" style="display: none;">
-                                <td>
-                                    <span class="folder ui-draggable">产品</span>
-                                </td>
-                            </tr>
-                            <tr data-tt-id="2-1-0" data-tt-parent-id="2-1" class="leaf collapsed" style="display: none;">
-                                <td>
-                                    <span class="file ui-draggable">
-                                        <a href="#">新增一个职位</a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr data-tt-id="2-1-1" data-tt-parent-id="2-1" class="leaf collapsed" style="display: none;">
-                                <td>
-                                    <span class="folder ui-draggable">产品经理</span>
-                                </td>
-                            </tr>
-                            <tr data-tt-id="2-1-1-1" data-tt-parent-id="2-1-1" class="leaf collapsed" style="display: none;">
-                                <td>
-                                    <span class="folder ui-draggable">招聘要求</span>
-                                </td>
-                            </tr>
-                            <tr data-tt-id="2-1-1-1-0" data-tt-parent-id="2-1-1-1" class="leaf collapsed" style="display: none;">
-                                <td>
-                                    <span class="file ui-draggable">
-                                        <a href="#">新增一个描述</a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr data-tt-id="2-1-1-1-1" data-tt-parent-id="2-1-1-1" class="leaf collapsed" style="display: none;">
-                                <td>
-                                    <span class="file ui-draggable">能吃苦</span>
-                                </td>
-                            </tr>
-                            <tr data-tt-id="2-1-1-2" data-tt-parent-id="2-1-1" class="leaf collapsed" style="display: none;">
-                                <td>
-                                    <span class="folder ui-draggable">职责描述</span>
-                                </td>
-                            </tr>
-                            <tr data-tt-id="2-1-1-2-0" data-tt-parent-id="2-1-1-2" class="leaf collapsed" style="display: none;">
-                                <td>
-                                    <span class="file ui-draggable">
-                                        <a href="#">新增一个描述</a>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr data-tt-id="2-1-1-2-1" data-tt-parent-id="2-1-1-2" class="leaf collapsed" style="display: none;">
-                                <td>
-                                    <span class="file ui-draggable">能耐劳</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="row" id="table-wrapper">
                 </div>
                 <div class="row">
                     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="bang-alert" class="modal fade">
@@ -406,8 +309,10 @@
     <script src="script/jquery.ui.draggable.js"></script>
     <script src="script/jquery.ui.droppable.js"></script>
     <script src="script/jquery.treetable.js"></script>
+    <script src="script/tablejson.js"></script>
     <script src="script/render.js"></script>
     <script>
+    jQuery('#table-wrapper').html(renderTable());
     $("#example-advanced").treetable({
         expandable: true
     });

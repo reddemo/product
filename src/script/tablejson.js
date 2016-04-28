@@ -2,7 +2,7 @@ var table=[{
 	name:'新增一个城市',
 	id:'0',
 	type:'add',
-	farther:null
+	father:null
 },{
   name:'bj',
   id:'1',
@@ -17,6 +17,7 @@ var table=[{
   	name:'产品设计部门',
   	id:'1-1',
   	type:'department',
+  	father:'1',
   	children:[{
   		name:'新增一个岗位',
   		id:'1-1-0',
@@ -33,7 +34,12 @@ var table=[{
   			type:'yaoqiu',
   			father:'1-1-1',
   			children:[
-  				'反转地球'
+  				{
+  					name:'反转地球',
+  					id:'1-1-1-0-0',
+  					type:'expression',
+  					father:'1-1-1-0'
+  				}
   			]
   		},{
   			name:'岗位描述',
@@ -41,7 +47,12 @@ var table=[{
   			type:'miaoshu',
   			father:'1-1-1',
   			children:[
-  				'拯救地球'
+  				{
+  					name:'反转地球',
+  					id:'1-1-1-1-0',
+  					type:'expression',
+  					father:'1-1-1-1'
+  				}
   			]
   		}]
   	}]
