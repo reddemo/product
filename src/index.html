@@ -16,11 +16,15 @@
     <link href="css/style-responsive.css" rel="stylesheet">
     <link href="style/common.css" rel="stylesheet">
     <link href="style/style.css" rel="stylesheet">
+    <link href="style/jquery.treetable.css" rel="stylesheet">
+    <link href="style/jquery.treetable.theme.default.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-  <script src="js/html5shiv.js"></script>
-  <script src="js/respond.min.js"></script>
-  <![endif]-->
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <!--nestable css-->
+    <link rel="stylesheet" type="text/css" href="js/nestable/jquery.nestable.css" />
     <script type="text/tpl" id="formhtml">
         <li class="list-group-item entry" x-name="<%=name%>">
             <span class="btn btn-info popovers mgr20px" data-trigger="hover" data-placement="bottom" data-content="type:text" data-original-title="name:<%=name%>">
@@ -153,91 +157,108 @@
             <!--body wrapper start-->
             <div class="wrapper bang-wrapper">
                 <div class="row">
-                    <div class="mail-box">
-                        <aside class="mail-nav mail-nav-bg-color">
-                            <header class="header">
-                                <h4>表单</h4> </header>
-                            <div class="mail-nav-body">
-                                <ul class="nav nav-pills nav-stacked mail-navigation">
-                                    <li class="active">
-                                        <a href="mail.html"> <i class="fa fa-inbox"></i> 用户 <span class="label label-danger pull-right inbox-notification">4</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="#"> <i class="fa fa-envelope-o"></i> 车</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"> <i class="fa fa-certificate"></i> 经销商</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- <footer class="text-center">
-                                <div class="btn-group">
-                                    <a href="javascript:;" class="btn mini btn-default">
-                                        <i class="fa fa-power-off"></i>
-                                    </a>
-                                </div>
-                                <div class="btn-group">
-                                    <a href="javascript:;" class="btn mini btn-default">
-                                        <i class="fa fa-cog"></i>
-                                    </a>
-                                </div>
-                            </footer> -->
-                        </aside>
-                        <section class="mail-box-info">
-                            <header class="header">
-                                <div class="btn-toolbar">
-                                    <!-- <div class="btn-group select standard-entry">
-                                        <button data-toggle="dropdown" class="btn btn-primary btn-sm dropdown-toggle">
-                                            <span style="width: 70px;" class="dropdown-label">标准对象</span>
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu text-left text-sm">
-                                            <li><a href="#">手机号</a></li>
-                                            <li><a href="#">姓名</a></li>
-                                            <li><a href="#">婚否</a></li>
-                                            <li><a href="#">要求</a></li>
-                                        </ul>
-                                    </div> -->
-                                    <a href="javascript:;" class="btn btn-danger  btn-sm" id="add-max">提交</a>
-                                </div>
-                            </header>
-                            <section class="pannel">
-                                <div class="form-group standard-entry">
-                                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">标准对象</label>
-                                    <div class="col-lg-10">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox1" value="option1" name="mb" x-text="手机号"> 手机号
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox2" value="option2" name="age" x-text="年龄"> 年龄
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox3" value="option3" name="name" x-text="姓名"> 姓名
-                                        </label>
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="pannel">
-                                <div class="form-group standard-entry">
-                                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">扩展对象</label>
-                                    <div class="col-lg-10">
-                                        <div>
-                                            <div class="form-group" style="margin-bottom:-30px;">
-                                                <div class="col-lg-2">
-                                                    <input type="text" class="form-control" id="inputWarning">
-                                                </div>
-                                            </div>
-                                            <button class="btn btn-primary" id="addExt" type="button">增加属性</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="mail-list">
-                                <ul class="list-group ">
-                                </ul>
-                            </section>
-                        </section>
-                    </div>
+                    <table id="example-advanced" class="treetable">
+                        <caption>
+                            <a href="#" onclick="jQuery('#example-advanced').treetable('expandAll'); return false;">Expand all</a>
+                            <a href="#" onclick="jQuery('#example-advanced').treetable('collapseAll'); return false;">Collapse all</a>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th>层级</th>
+                                <th>城市</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-tt-id="0" class="leaf collapsed">
+                                <td>
+                                    <span class="indenter" style="padding-left: 0px;"></span><span class="file ui-draggable">
+                                        新增一个城市
+                                    </span>
+                                </td>
+                                <td>城市</td>
+                            </tr>
+                            <tr data-tt-id="1" class="leaf collapsed">
+                                <td>
+                                    <span class="indenter" style="padding-left: 0px;"></span><span class="file ui-draggable">
+                                        北京
+                                    </span>
+                                </td>
+                                <td>北京</td>
+                            </tr>
+                            <tr data-tt-id="2" class="branch ui-droppable collapsed">
+                                <td>
+                                    <span class="folder ui-draggable">上海</span>
+                                </td>
+                                <td>上海</td>
+                            </tr>
+                            <tr data-tt-id="2-1" data-tt-parent-id="2" class="ui-droppable branch collapsed" style="display: none;">
+                                <td>
+                                    <span class="folder ui-draggable">产品</span>
+                                </td>
+                                <td>上海</td>
+                            </tr>
+                            <tr data-tt-id="2-1-1" data-tt-parent-id="2-1" class="leaf collapsed" style="display: none;">
+                                <td>
+                                    <span class="file ui-draggable">产品经理</span>
+                                </td>
+                                <td>上海</td>
+                            </tr>
+                            <tr data-tt-id="2-1-1-1" data-tt-parent-id="2-1-1" class="leaf collapsed" style="display: none;">
+                                <td>
+                                    <span class="file ui-draggable">招聘要求</span>
+                                </td>
+                                <td>上海</td>
+                            </tr>
+                            <tr data-tt-id="2-1-1-1-1" data-tt-parent-id="2-1-1-1" class="leaf collapsed" style="display: none;">
+                                <td>
+                                    <span class="file ui-draggable">能吃苦</span>
+                                </td>
+                                <td>上海</td>
+                            </tr>
+                            <tr data-tt-id="2-1-2" data-tt-parent-id="2-1" class="leaf collapsed" style="display: none;">
+                                <td>
+                                    <span class="file ui-draggable">产品总监</span>
+                                </td>
+                                <td>上海</td>
+                            </tr>
+                            <tr data-tt-id="3" class="branch ui-droppable collapsed">
+                                <td>
+                                    <span class="folder ui-draggable">广州</span>
+                                </td>
+                                <td>广州</td>
+                            </tr>
+                            <tr data-tt-id="3-1" data-tt-parent-id="3" class="ui-droppable branch collapsed" style="display: none;">
+                                <td>
+                                    <span class="folder ui-draggable">产品</span>
+                                </td>
+                                <td>广州</td>
+                            </tr>
+                            <tr data-tt-id="3-1-1" data-tt-parent-id="3-1" class="leaf collapsed" style="display: none;">
+                                <td>
+                                    <span class="file ui-draggable">产品经理</span>
+                                </td>
+                                <td>广州</td>
+                            </tr>
+                            <tr data-tt-id="3-1-1-1" data-tt-parent-id="3-1-1" class="leaf collapsed" style="display: none;">
+                                <td>
+                                    <span class="file ui-draggable">招聘要求</span>
+                                </td>
+                                <td>广州</td>
+                            </tr>
+                            <tr data-tt-id="3-1-1-1-1" data-tt-parent-id="3-1-1-1" class="leaf collapsed" style="display: none;">
+                                <td>
+                                    <span class="file ui-draggable">能吃苦</span>
+                                </td>
+                                <td>广州</td>
+                            </tr>
+                            <tr data-tt-id="3-1-2" data-tt-parent-id="3-1" class="leaf collapsed" style="display: none;">
+                                <td>
+                                    <span class="file ui-draggable">产品总监</span>
+                                </td>
+                                <td>广州</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="row">
                     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="bang-alert" class="modal fade">
@@ -354,7 +375,23 @@
     <script src="js/es6-promise.min.js"></script>
     <script src="js/underscore.min.js"></script>
     <!-- END JAVASCRIPTS -->
+    <script src="js/nestable/jquery.nestable.js"></script>
+    <script src="script/nestable-init.js"></script>
+    <script src="script/jquery-ui.min.js"></script>
     <!--script for editable table-->
+    <link href="style/jquery.treetable.css" rel="stylesheet" type="text/css" />
+    <script src="script/jquery.ui.core.js"></script>
+    <script src="script/jquery.ui.widget.js"></script>
+    <script src="script/jquery.ui.mouse.js"></script>
+    <script src="script/jquery.ui.draggable.js"></script>
+    <script src="script/jquery.ui.droppable.js"></script>
+    <script src="script/jquery.treetable.js"></script>
+    <script>
+    $("#example-advanced").treetable({
+        expandable: true
+    });
+
+    </script>
     <script src="script/underscore.js"></script>
     <script src="script/spin.js"></script>
     <script src="script/loading.js"></script>

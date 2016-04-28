@@ -103,3 +103,12 @@ small a:hover {
   position: absolute;
   right: 100px;
 }
+
+.dd3-content{
+  height: auto!important;
+}
+
+.panel-group {
+    margin-top: 36px;
+    /*margin-bottom: 20px;*/
+}
