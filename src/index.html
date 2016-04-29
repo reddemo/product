@@ -58,10 +58,14 @@
         </li>
     </script>
     <script type="text/tpl" id="tr">
-        <tr data-tt-id="<%=id%>" <%=father? 'data-tt-parent-id="'+father+ '"':void 0%> class="leaf collapsed">
+        <tr data-tt-id="<%=id%>" <%=father? 'data-tt-parent-id="'+father+ '" '+'style="display:none"':void 0%> class="leaf collapsed" >
             <td>
-                <span class="file ui-draggable">
-                    <a href="#"><%=name%></a>
+                <span class="<%=type=='add'||type=='expression'?'file':'folder'%> ui-draggable">
+                    <%if(type=="add"){%>
+                        <a href="#"><%=name%></a>
+                    <%}else{%>
+                        <%=name%>
+                    <%}%>
                 </span>
             </td>
         </tr>
