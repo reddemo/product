@@ -646,7 +646,7 @@
                     $('#prizeInfo').html(_.reduce(data.prizeInfo, function(c, v, k, e) {
                         return c + '<option value="' + v.prizename + '">' + v.prizename + '(剩余：' + v.rest + ')</option>'
                     }, ''))
-
+                    $('#willRule tbody').html('');
                     // $('#prizerule [name="rule"]').val(JSON.stringify(prizeRule));
 
                     $("#bang-edit").modal({
