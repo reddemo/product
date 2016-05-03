@@ -17,19 +17,21 @@
     <link rel="stylesheet" href="css/bootstrapValidator.css" />
     <!--multi-select-->
     <script type="text/tpl" id="prizetr">
-        <tr>
-            <td class="hidden-phone">
-                <%=prizename%>
-            </td>
-            <td>
-                <%=prizecount%>
-            </td>
-            <td>
-                <span class="label label-danger label-mini">
-                                                              删除
-                                                            </span>
-            </td>
-        </tr>
+        <%_.each(data,function(v){%>
+            <tr>
+                <td class="hidden-phone">
+                    <%=v.prizename%>
+                </td>
+                <td>
+                    <%=v.prizecount%>
+                </td>
+                <td>
+                    <span class="label label-danger label-mini">
+                                                                  删除
+                                                                </span>
+                </td>
+            </tr>
+            <%})%>
     </script>
     <link rel="stylesheet" type="text/css" href="js/jquery-multi-select/css/multi-select.css" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -292,16 +294,16 @@
                                                 <label class="control-label col-md-3">奖品范围</label>
                                                 <div class="col-md-4">
                                                     <div class="input-group input-large">
-                                                        <input type="text" class="form-control dpd1" name="starttime">
+                                                        <input type="text" class="form-control dpd1" name="starttime" disabled>
                                                         <span class="input-group-addon">To</span>
-                                                        <input type="text" class="form-control dpd2" name="endtime">
+                                                        <input type="text" class="form-control dpd2" name="endtime" disabled>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-md-3" for="inputSuccess">奖品</label>
                                                 <div class="col-lg-4">
-                                                    <select class="form-control input-sm m-bot15" name="prizename">
+                                                    <select class="form-control input-sm m-bot15" name="prizename" id="prizeInfo">
                                                         <option>猫女郎</option>
                                                         <option>车模</option>
                                                         <option>兰博基尼</option>
@@ -323,8 +325,8 @@
                                         <form action="#" class="form-horizontal " id="prizerule">
                                             <input type="hidden" name="starttime" value="1">
                                             <input type="hidden" name="endtime" value="13">
-                                            <input type="hidden" name="rule" value='[{"prize":"猫女郎","prizecount":"30"}]'>
-                                            <table class="table  table-hover general-table">
+                                            <input type="hidden" name="rule" value='[{"starttime":"1","endtime":"13","prize":"猫女郎","prizecount":"30"}]'>
+                                            <table class="table  table-hover general-table" id="willRule">
                                                 <thead>
                                                     <tr>
                                                         <th class="hidden-phone">
@@ -338,7 +340,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
+                                                    <!-- <tr>
                                                         <td class="hidden-phone">
                                                             猫女郎
                                                         </td>
@@ -350,7 +352,7 @@
                                                               删除
                                                             </span>
                                                         </td>
-                                                    </tr>
+                                                    </tr> -->
                                                 </tbody>
                                             </table>
                                         </form>
@@ -398,52 +400,281 @@
     <script src="script/underscore.js"></script>
     <script src="script/spin.js"></script>
     <script src="script/loading.js"></script>
-    <script src="script/editable-table.js"></script>
+    <!-- // <script src="script/editable-table.js"></script> -->
     <script src="script/modal.js"></script>
     <script src="script/config.js"></script>
     <script src="script/geturl.js"></script>
     <script src="script/http.js"></script>
-    <script src="script/app.js"></script>
+    <!-- // <script src="script/app.js"></script> -->
     <script type="text/javascript" src="script/bootstrapValidator.min.js"></script>
     <script>
-    var renderPrizetrHtml=_.template(jQuery('#prizetr').html());
-    var jqMaybeRule = $('#maybeRule');
-    var jqSumbit=$('#prizerule');
-    var jqPrizeRuleTable=$('#prizerule table tbody');
-    jqPrizeRuleTable.on('click','.label-danger',function(){
-        $(this).closest('tr').remove();
-    });
-    var jqModal=jQuery('#bang-edit');
-    jqModal.on('click','.modal-footer .btn',function(){
-        var data=jqSumbit.serializeArray();
+    // //编辑按钮事件
+    // jQuery('#editable-sample').on('click', '.edit', function() { //编辑事件
+    //     // console.log()
+    //     var time = jQuery(this).closest('tr').find('td:eq(1)').html().split('-');
+    //     var starttime = time[0];
+    //     var endtime = time[1];
 
-    });
-    jqMaybeRule
-        .on('click', '.submit', function() {
-            if (jqMaybeRule.data('bootstrapValidator').validate().$invalidFields.size()) {
-                return;
+    //     getUrl({
+    //         url: 'test/prize.json',
+    //         data: {
+    //             starttime: starttime,
+    //             endtime: endtime
+    //         },
+    //         type: 'get',
+    //         dataType: 'json'
+    //     }).then(function(remote) {
+    //         if (remote.code == 0) { //数据成功后
+    //             var data = remote.data;
+    //             prizeRule = data;
+    //             var didRule = _.reduce(data, function(c, v, k, e) {
+    //                 return c + renderPrizetrHtml(v);
+    //             }, '');
+    //             $('#willRule tbody').html(didRule);
+
+    //             // $('#prizerule [name="rule"]').val(JSON.stringify(prizeRule));
+
+    //             $("#bang-edit").modal({
+    //                 title: time.join('-')
+    //             });
+    //             $('#prizerule [name="starttime"]').val(starttime);
+    //             $('#prizerule [name="endtime"]').val(endtime);
+    //             $('#maybeRule [name="starttime"]').val(starttime);
+    //             $('#maybeRule [name="endtime"]').val(endtime);
+    //         }
+    //     })
+    // });
+    // //抽奖规则
+    // var prizeRule = jQuery('#prizerule [name="rule"]').val();
+    // var starttime = jQuery('#prizerule [name="starttime"]').val()
+    // var endtime = jQuery('#prizerule [name="endtime"]').val();
+    // var renderPrizetrHtml = _.template(jQuery('#prizetr').html());
+    // // var didPrizeTableHTML=_.reduce()
+    // var jqMaybeRule = $('#maybeRule');
+    // var jqSumbit = $('#prizerule');
+    // var jqPrizeRuleTable = $('#prizerule table tbody');
+    // jqPrizeRuleTable.on('click', '.label-danger', function() {
+    //     $(this).closest('tr').remove();
+    // });
+    // var jqModal = jQuery('#bang-edit');
+    // jqModal.on('click', '.modal-footer .btn', function() {
+    //     var data = jqSumbit.serializeArray();
+    //     console.log(data)
+
+    // });
+    // jqMaybeRule.on('change', 'input,select', function() {
+    //     jqMaybeRule.find('.submit').attr('disabled', false);
+    // }); //当提交成功后禁用提交按钮，除非数据发生变化才可以再次提交
+    // jqMaybeRule //提交部分规则
+    //     .on('click', '.submit', function(e) {
+    //         if (jqMaybeRule.data('bootstrapValidator').validate().$invalidFields.size()) {
+    //             return;
+    //         }
+    //         var data = _.reduce(jqMaybeRule.serializeArray(), function(c, v, k, e) {
+    //             c[v.name] = v.value;
+    //             return c;
+    //         }, {});
+
+
+    //         getUrl({
+    //             url: 'test/prize.json',
+    //             data: data,
+    //             type: 'get'
+    //         }).
+    //         then(function(remote) {
+    //             if (remote.code == 0) {
+    //                 var prizetrHtml = renderPrizetrHtml(data);
+    //                 jqPrizeRuleTable.append(prizetrHtml);
+    //                 prizeRule.push(data);
+    //                 $('#prizerule [name="rule"]').val(JSON.stringify(prizeRule));
+    //             } else {
+    //                 alert(remote.message);
+    //             }
+    //         });
+    //         $(this).prop('disabled', true);
+    //         e.preventDefault();
+    //         e.stopPropagation();
+    //     })
+    //     .bootstrapValidator({
+    //         message: 'This value is not valid',
+    //         fields: {
+    //             starttime: {
+    //                 message: '容我考虑一分钟',
+    //                 validators: {
+    //                     notEmpty: {
+    //                         message: '不能为空'
+    //                     },
+    //                     stringLength: {
+    //                         min: 1,
+    //                         max: 4,
+    //                         message: '数字必须在有效范围内'
+    //                     },
+    //                     /*remote: {
+    //                         url: 'remote.php',
+    //                         message: 'The username is not available'
+    //                     },*/
+    //                     regexp: {
+    //                         regexp: /^\d+$/,
+    //                         message: '必须是数字'
+    //                     }
+    //                 }
+    //             },
+    //             endtime: {
+    //                 message: '容我考虑一分钟',
+    //                 validators: {
+    //                     notEmpty: {
+    //                         message: '不能为空'
+    //                     },
+    //                     stringLength: {
+    //                         min: 1,
+    //                         max: 4,
+    //                         message: '数字必须在有效范围内'
+    //                     },
+    //                     /*remote: {
+    //                         url: 'remote.php',
+    //                         message: 'The username is not available'
+    //                     },*/
+    //                     regexp: {
+    //                         regexp: /^\d+$/,
+    //                         message: '必须是数字'
+    //                     }
+    //                 }
+    //             },
+    //             prizename: {
+    //                 validators: {
+    //                     callback: {
+    //                         callback: function(value) {
+    //                             return !_.find(prizeRule, function(v) {
+    //                                 return v.prizename == value;
+    //                             });
+    //                         },
+    //                         message: '重复了'
+    //                     }
+    //                 }
+    //             },
+    //             prizecount: {
+    //                 validators: {
+    //                     notEmpty: {
+    //                         message: ''
+    //                     },
+    //                     regexp: {
+    //                         regexp: /^\d+$/,
+    //                         message: '必须是数字'
+    //                     },
+    //                     callback: {
+    //                         callback: function() {
+
+    //                             if (parseInt(jqMaybeRule.find('[name="prizecount"]').val(), 10) > parseInt(jqMaybeRule.find('[name="endtime"]').val(), 10)) {
+
+    //                                 return false;
+    //                             }
+    //                             return true;
+    //                         },
+    //                         message: '奖品数不能大于抽奖人数'
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     });
+    </script>
+    <script type="text/javascript">
+    function Bang() {
+
+        var jqTable = jQuery('#editable-sample');
+        var renderPrizetrHtml = _.template(jQuery('#prizetr').html());
+        var prizeRules;
+        var rang;
+
+        function getPrizeRang(dom) {
+            var time = jQuery(dom).closest('tr').find('td:eq(1)').html().split('-');
+            return {
+                starttime: time[0],
+                endtime: time[1]
             }
-            var data = _.reduce(jqMaybeRule.serializeArray(), function(c, v, k, e) {
-                c[v.name] = v.value;
-                return c;
-            }, {});
+        }
+
+        jQuery('#maybeRule').on('change', 'input,select', function() {
+            jQuery('#maybeRule').find('.submit').attr('disabled', false);
+        });
+
+        function getEditorByRang(rang) {
             getUrl({
                 url: 'test/prize.json',
-                data: data,
-                type: 'get'
-            }).
-            then(function(remote) {
-                if (remote.code == 0) {
-                    var prizetrHtml=renderPrizetrHtml(data);
-                    jqPrizeRuleTable.append(prizetrHtml);
-                } else {
-                    alert(remote.message);
+                data: rang,
+                type: 'get',
+                dataType: 'json'
+            }).then(function(remote) {
+                if (remote.code == 0) { //数据成功后
+                    jQuery('#maybeRule [name="starttime"]').prop('disabled', true);
+                    jQuery('#maybeRule [name="endtime"]').prop('disabled', true);
+                    var data = remote.data;
+                    prizeRules = data.prizeRules;
+                    var didRule = renderPrizetrHtml({
+                            data: prizeRules
+                        })
+                        // console.log(data)
+                    $('#willRule tbody').html(didRule);
+                    $('#prizeInfo').html(_.reduce(data.prizeInfo, function(c, v, k, e) {
+                        return c + '<option value="' + v.prizename + '">' + v.prizename + '(剩余：' + v.rest + ')</option>'
+                    }, ''))
+
+                    // $('#prizerule [name="rule"]').val(JSON.stringify(prizeRule));
+
+                    $("#bang-edit").modal({
+                        title: rang.starttime + '-' + rang.endtime
+                    });
+                    $('#prizerule [name="starttime"]').val(rang.starttime);
+                    $('#prizerule [name="endtime"]').val(rang.endtime);
+                    $('#maybeRule [name="starttime"]').val(rang.starttime);
+                    $('#maybeRule [name="endtime"]').val(rang.endtime);
                 }
+            })
+        }
+
+        function getAdd() {
+            getUrl({
+                url: 'test/prize.json',
+                type: 'get',
+                dataType: 'json'
+            }).then(function(remote) {
+                if (remote.code == 0) { //数据成功后
+                    jQuery('#maybeRule [name="starttime"]').prop('disabled', false);
+                    jQuery('#maybeRule [name="endtime"]').prop('disabled', false);
+                    var data = remote.data;
+                    prizeRules = []
+                        // console.log(data)
+                    $('#prizeInfo').html(_.reduce(data.prizeInfo, function(c, v, k, e) {
+                        return c + '<option value="' + v.prizename + '">' + v.prizename + '(剩余：' + v.rest + ')</option>'
+                    }, ''))
+
+                    // $('#prizerule [name="rule"]').val(JSON.stringify(prizeRule));
+
+                    $("#bang-edit").modal({
+                        title: '新增'
+                    });
+                    $('#prizerule [name="starttime"]').val(rang.starttime);
+                    $('#prizerule [name="endtime"]').val(rang.endtime);
+                    $('#maybeRule [name="starttime"]').val(rang.starttime);
+                    $('#maybeRule [name="endtime"]').val(rang.endtime);
+                }
+            })
+        }
+
+        function handleEdit() {
+            jqTable.on('click', '.edit', function() {
+                rang = getPrizeRang(this);
+                getEditorByRang(rang);
             });
-        })
-        .bootstrapValidator({
-            message: 'This value is not valid',
-            fields: {
+            checkData();
+            remove();
+            jQuery('#bang-edit').on('click', '.modal-footer .btn-danger', function() {
+                submitWill();
+            });
+        }
+
+
+        function checkData() {
+            var checkRules = {
                 starttime: {
                     message: '容我考虑一分钟',
                     validators: {
@@ -476,13 +707,21 @@
                             max: 4,
                             message: '数字必须在有效范围内'
                         },
-                        /*remote: {
-                            url: 'remote.php',
-                            message: 'The username is not available'
-                        },*/
                         regexp: {
                             regexp: /^\d+$/,
                             message: '必须是数字'
+                        }
+                    }
+                },
+                prizename: {
+                    validators: {
+                        callback: {
+                            callback: function(value) {
+                                return !_.find(prizeRules, function(v) {
+                                    return v.prizename == value;
+                                });
+                            },
+                            message: '重复了'
                         }
                     }
                 },
@@ -495,21 +734,114 @@
                             regexp: /^\d+$/,
                             message: '必须是数字'
                         },
-                        callback:{
-                            callback:function(){
-                                
-                            if (parseInt(jqMaybeRule.find('[name="prizecount"]').val(), 10) > parseInt(jqMaybeRule.find('[name="endtime"]').val(), 10)) {
-                                
-                                return false;
-                            }
+                        callback: {
+                            callback: function() {
+
+                                if (parseInt(jqMaybeRule.find('[name="prizecount"]').val(), 10) > parseInt(jqMaybeRule.find('[name="endtime"]').val(), 10)) {
+
+                                    return false;
+                                }
                                 return true;
                             },
-                            message:'奖品数不能大于抽奖人数'
+                            message: '奖品数不能大于抽奖人数'
                         }
                     }
                 }
             }
-        });
+            var jqMaybeRule = jQuery("#maybeRule")
+            jqMaybeRule.bootstrapValidator({
+                message: 'This value is not valid',
+                fields: checkRules
+            }).on('click', '.submit', function(e) {
+                if (jqMaybeRule.data('bootstrapValidator').validate().$invalidFields.size()) {
+                    return;
+                }
+                var data = _.reduce(jqMaybeRule.serializeArray(), function(c, v, k, e) {
+                    c[v.name] = v.value;
+                    return c;
+                }, {});
+
+
+                getUrl({
+                    url: 'test/prize.json',
+                    data: data,
+                    type: 'get'
+                }).
+                then(function(remote) {
+                    if (remote.code == 0) {
+                        var finedSame = _.find(prizeRules, function(v) {
+                            // console.log(v.name,data.name)
+                            return v.prizename == data.prizename
+                        });
+                        if (finedSame) {
+                            alert('重复了');
+                        } else {
+                            prizeRules.push(data);
+                            var prizetrHtml = renderPrizetrHtml({
+                                data: prizeRules
+                            });
+                            jQuery('#willRule tbody').html(prizetrHtml);
+                            $('#prizerule [name="rule"]').val(JSON.stringify(prizeRules));
+                        }
+                        $(this).prop('disabled', true);
+                    } else {
+                        alert(remote.message);
+                    }
+                });
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        }
+
+        function submitMaybe() {
+
+        }
+
+        function remove() {
+            jQuery('#willRule').on('click', '.label-danger', function() {
+                var tr = $(this).closest('tr');
+                tr.remove();
+                prizeRules = _.reject(prizeRules, function(v) {
+                    return v.prizename == jQuery.trim(tr.find('td').eq(0).html())
+                });
+            })
+        }
+
+        function submitWill() {
+            getUrl({
+                url: 'test/prize.json',
+                type: 'get',
+                dataType: 'json',
+                data: _.extend(rang, prizeRules)
+            })
+        }
+
+
+        // function edit() {
+        //     jQuery('').on('click', function() {
+
+        //         jQuery('#maybeRule [name="starttime"]').prop('disabled', true);
+        //         jQuery('#maybeRule [name="endtime"]').prop('disabled', true);
+        //     })
+        // }
+        function handleAdd() {
+            jQuery('#editable-sample_new').on('click', function() {
+                jQuery('#maybeRule [name="starttime"]').prop('disabled', false);
+                jQuery('#maybeRule [name="endtime"]').prop('disabled', false);
+                getAdd();
+            })
+        }
+        return {
+            init: function() {
+                handleEdit();
+                handleAdd()
+            }
+        }
+    }
+    </script>
+    <script type="text/javascript">
+    var bang = new Bang();
+    bang.init();
     </script>
 </body>
 

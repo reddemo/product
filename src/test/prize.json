@@ -1,7 +1,22 @@
 {
-	"message":"you are wrong",
-	"data":{
-
-	},
-	"code":0
+    "message": "you are wrong",
+    "data": {
+        "prizeInfo": [{
+            "prizename": "猫女郎",
+            "rest": 40
+        },{
+            "prizename": "车模",
+            "rest": 40
+        },{
+            "prizename": "兰博基尼",
+            "rest": 40
+        }],
+        "prizeRules": [{
+            "starttime": "1",
+            "endtime": "12",
+            "prizename": "猫女郎",
+            "prizecount": "300"
+        }]
+    },
+    "code": 0
 }
