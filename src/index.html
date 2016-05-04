@@ -60,9 +60,9 @@
     <script type="text/tpl" id="tr">
         <tr data-tt-id="<%=id%>" <%=father? 'data-tt-parent-id="'+father+ '" '+'style="display:none"':void 0%> class="leaf collapsed" >
             <td>
-                <span class="<%=type=='add'||type=='expression'?'file':'folder'%> ui-draggable">
-                    <%if(type=="add"){%>
-                        <a href="#"><%=name%></a>
+                <span class="<%=type=='add'||type=='expression'||type=='editor' ? 'file':'folder'%> ui-draggable">
+                    <%if(type=="add"||type=="editor"){%>
+                        <a href="#" class="<%=type%>" x-id="<%=id%>"><%=name%></a>
                     <%}else{%>
                         <%=name%>
                     <%}%>
@@ -82,7 +82,7 @@
                 </tr>
             </thead>
             <tbody>
-                <%=render(table)%>
+                <%=render(table,null)%>
             </tbody>
         </table>
     </script>
@@ -205,7 +205,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="bang-edit" class="modal fade">
+                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="bang-city" class="modal fade">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -216,53 +216,13 @@
                                     <div>
                                         <form class="form-horizontal" role="form">
                                             <div class="form-group">
-                                                <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">姓名</label>
                                                 <div class="col-lg-10">
-                                                    <input type="email" class="form-control" id="inputEmail1" placeholder="Email">
+                                                    <input type="text" class="form-control" id="inputEmail1">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">手机号</label>
                                                 <div class="col-lg-10">
-                                                    <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
-                                                    <!--<p class="help-block">Example block-level help text here.</p>-->
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">身份证号</label>
-                                                <div class="col-lg-10">
-                                                    <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
-                                                    <!--<p class="help-block">Example block-level help text here.</p>-->
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">品牌</label>
-                                                <div class="col-lg-10">
-                                                    <select class="form-control m-bot15" id="exampleInputPassword23" style="position:relative;top:8px;">
-                                                        <option>Option 1</option>
-                                                        <option>Option 2</option>
-                                                        <option>Option 3</option>
-                                                    </select>
-                                                    <!--<p class="help-block">Example block-level help text here.</p>-->
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">下订车型</label>
-                                                <div class="col-lg-10">
-                                                    <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
-                                                    <!--<p class="help-block">Example block-level help text here.</p>-->
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">经销商名称</label>
-                                                <div class="col-lg-10">
-                                                    <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
-                                                    <!--<p class="help-block">Example block-level help text here.</p>-->
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-lg-offset-2 col-lg-10">
-                                                    <button type="submit" class="btn btn-primary">提交</button>
+                                                    <button type="button" class="btn btn-primary submit">提交</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -315,12 +275,6 @@
     <script src="script/jquery.treetable.js"></script>
     <script src="script/tablejson.js"></script>
     <script src="script/render.js"></script>
-    <script>
-    jQuery('#table-wrapper').html(renderTable());
-    $("#example-advanced").treetable({
-        expandable: true
-    });
-    </script>
     <script src="script/underscore.js"></script>
     <script src="script/spin.js"></script>
     <script src="script/loading.js"></script>
