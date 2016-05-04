@@ -63,7 +63,8 @@ function MaoEarth() {
         listener();
     }
     return {
-        render: render1
+        render: render1,
+        _renderTable:render
     }
 }
 
