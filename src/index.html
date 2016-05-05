@@ -25,49 +25,26 @@
     <![endif]-->
     <!--nestable css-->
     <link rel="stylesheet" type="text/css" href="js/nestable/jquery.nestable.css" />
-    <script type="text/tpl" id="formhtml">
-        <li class="list-group-item entry" x-name="<%=name%>">
-            <span class="btn btn-info popovers mgr20px" data-trigger="hover" data-placement="bottom" data-content="type:text" data-original-title="name:<%=name%>">
-                <%=text%>
-            </span>
-            <span class="" href="#">
-            <%_.each(attrs,function(v,k,c){%>
-                <div class="inline-block mgr20px">
-                    <span class="label label-default">
-                        <%=v.text%>
-                    </span>
-            <sup class="close rounded  small">
-                    </sup>
-            </div>
-            <%});%>
-                </span>
-                <div class="btn-group select floatright">
-                    <button data-toggle="dropdown" class="btn btn-primary btn-sm dropdown-toggle">
-                        <span style="width: 70px;" class="dropdown-label">自定义属性</span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu text-left text-sm">
-                        <li><a href="#">必填</a></li>
-                        <li><a href="#">中文</a></li>
-                        <li><a href="#">最小</a></li>
-                        <li><a href="#">最大</a></li>
-                    </ul>
-                </div>
-                <span class="close rounded removeEntry">
-          </span>
-        </li>
-    </script>
     <script type="text/tpl" id="tr">
-        <tr data-tt-id="<%=id%>" <%=father? 'data-tt-parent-id="'+father+ '" '+'style="display:none"':void 0%> class="leaf collapsed" >
+        <tr data-tt-id="<%=id%>" <%=father? 'data-tt-parent-id="'+father+ '" '+'style="display:none"':void 0%> class="leaf collapsed <%="type_"+type%>" >
             <td>
-                <span class="<%=type=='add'||type=='expression' ? 'file':'folder'%> ui-draggable">
-                    <%if(type=="add"){%>
-                        <a href="#" class="<%=type%>" x-id="<%=id%>"><%=name%></a>
-                    <%}else{%>
-                        <%=name%>
-                    <%}%>
-                    
-                </span>
+                <%if(type=="add"){%>
+                    <span class="fa fa-plus-square-o ui-draggable">
+                        
+                    </span>
+                    <span><a href="#" class="<%=type%>" x-id="<%=id%>"><%=name%></a></span>
+                <%}else if(type=="expression"){%>
+                    <span class="fa fa-paste ui-draggable">
+                        
+                    </span>
+                    <span><span class="expression"  x-id="<%=id%>"><%=name%></span></span>
+                <%}else{%>
+
+                    <span class="fa fa-times ui-draggable">
+                        
+                    </span>
+                    <span><span class="editable" x-id="<%=id%>"><%=name%></span></span>
+                <%}%>
             </td>
         </tr>
     </script>
@@ -83,7 +60,7 @@
                 </tr>
             </thead>
             <tbody>
-                <%=maoEarth._renderTable(table,null)%>
+                <%=maoEarth.update(table,null)%>
             </tbody>
         </table>
     </script>
@@ -187,23 +164,6 @@
             <!--body wrapper start-->
             <div class="wrapper bang-wrapper">
                 <div class="row" id="table-wrapper">
-                </div>
-                <div class="row">
-                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="bang-alert" class="modal fade">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                                    <h4 class="modal-title"></h4>
-                                </div>
-                                <div class="modal-body">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger"> Ok</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="row">
                     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="bang-city" class="modal fade">
