@@ -46,7 +46,7 @@ function MaoEarth() {
             jqModal.modal({
                 title: jqThis.html()
             });
-        });
+        }).on('click','.expresstion');
 
         jqModal.on('click', '.submit', function() {
 

@@ -60,15 +60,13 @@
     <script type="text/tpl" id="tr">
         <tr data-tt-id="<%=id%>" <%=father? 'data-tt-parent-id="'+father+ '" '+'style="display:none"':void 0%> class="leaf collapsed" >
             <td>
-                <span class="<%=type=='add'||type=='expression'||type=='editor' ? 'file':'folder'%> ui-draggable">
-                    <%if(type=="add"||type=="editor"){%>
+                <span class="<%=type=='add'||type=='expression' ? 'file':'folder'%> ui-draggable">
+                    <%if(type=="add"){%>
                         <a href="#" class="<%=type%>" x-id="<%=id%>"><%=name%></a>
-                    <%}else if(type!="expression"){%>
+                    <%}else{%>
                         <%=name%>
                     <%}%>
-                    <%if(type=="expression"){%>
-                        <textarea><%=name%></textarea>
-                    <%}%>
+                    
                 </span>
             </td>
         </tr>
