@@ -63,8 +63,11 @@
                 <span class="<%=type=='add'||type=='expression'||type=='editor' ? 'file':'folder'%> ui-draggable">
                     <%if(type=="add"||type=="editor"){%>
                         <a href="#" class="<%=type%>" x-id="<%=id%>"><%=name%></a>
-                    <%}else{%>
+                    <%}else if(type!="expression"){%>
                         <%=name%>
+                    <%}%>
+                    <%if(type=="expression"){%>
+                        <textarea><%=name%></textarea>
                     <%}%>
                 </span>
             </td>
