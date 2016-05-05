@@ -29,18 +29,18 @@
         <tr data-tt-id="<%=id%>" <%=father? 'data-tt-parent-id="'+father+ '" '+'style="display:none"':void 0%> class="leaf collapsed <%="type_"+type%>" >
             <td>
                 <%if(type=="add"){%>
-                    <span class="fa fa-plus-square-o ui-draggable">
+                    <span class="fa fa-plus-square-o ui-draggable" x-id="<%=id%>">
                         
                     </span>
                     <span><a href="#" class="<%=type%>" x-id="<%=id%>"><%=name%></a></span>
                 <%}else if(type=="expression"){%>
-                    <span class="fa fa-paste ui-draggable">
+                    <span class="fa fa-paste ui-draggable" x-id="<%=id%>">
                         
                     </span>
                     <span><span class="expression"  x-id="<%=id%>"><%=name%></span></span>
                 <%}else{%>
 
-                    <span class="fa fa-times ui-draggable">
+                    <span class="fa fa-times ui-draggable remove" x-id="<%=id%>">
                         
                     </span>
                     <span><span class="editable" x-id="<%=id%>"><%=name%></span></span>
@@ -163,6 +163,9 @@
             <!-- page heading end-->
             <!--body wrapper start-->
             <div class="wrapper bang-wrapper">
+                <div class="row">
+                    <button class="btn btn-danger submitall">提交</button>
+                </div>
                 <div class="row" id="table-wrapper">
                 </div>
                 <div class="row">
