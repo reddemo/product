@@ -122,3 +122,6 @@ table.treetable{
 table.treetable span{
   /*padding: 0!important;*/
 }
+.editable:hover{
+  cursor: pointer;
+}

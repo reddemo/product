@@ -2,16 +2,18 @@
 
 function MaoEarth() {
     var jqContainer = jQuery('#table-wrapper');
-    var jqSubmit=jQuery('.bang-wrapper .submitall');
+    var jqSubmit = jQuery('.bang-wrapper .submitall');
     var jqModal = jQuery('#bang-city');
     init();
 
     var renderTr = _.template(jQuery('#tr').html()); //tr的动态模板
     var renderTable = _.template(jQuery('#tbody').html()); //拼出表格
+    var renderStatic = _.template(jQuery('#static').html());
     var render = function recur(table, father) { //递归的拼接tr，计算出正确的id和father
         return _.reduce(table, function(c, v, k, e) {
             v.id = _.filter([father, k], function(v) {
-                return v !== null }).join('-');
+                return v !== null
+            }).join('-');
             v.father = father;
             return v.children ? (c + renderTr(v) + recur(v.children, v.id)) :
                 (c + renderTr(v))
@@ -22,14 +24,14 @@ function MaoEarth() {
         var now;
         _.reduce(id.split('-'), function(c, v, k, e) {
             container = c;
-            now=c[v];
+            now = c[v];
             c = now.children;
             return c;
         }, table);
         return {
             container: container,
             model: container[0].model,
-            target:now
+            target: now
         };
     };
 
@@ -53,44 +55,52 @@ function MaoEarth() {
             // var 
             var jqThis = jQuery(this);
             var id = jqThis.attr('x-id');
-        }).on('click','.editable',function(){
-            var input=jQuery('<input>');
+        }).on('click', '.editable', function() {
+            var input = jQuery('<input>');
             input.addClass('input');
             input.val(jQuery(this).html());
             jQuery(this).html('').append(input).removeClass('editable');
             input.trigger('focus');
-        }).on('click','.expression',function(){
-            var input=jQuery('<textarea>');
-            input.attr('rows',10).attr('cols',100);
+        }).on('click', '.expression', function() {
+            var input = jQuery('<textarea>');
+            input.attr('rows', 10).attr('cols', 100);
             input.addClass('textarea');
             input.val(jQuery(this).html());
             jQuery(this).html('').append(input).removeClass('expression');
             input.trigger('focus');
-        }).on('blur','.input',function(){
-            var id=jQuery(this).parent().attr('x-id');
+        }).on('click', '.expression-wrapper', function() {
+            var input = jQuery('<textarea>');
+            input.attr('rows', 10).attr('cols', 100);
+            input.addClass('textarea');
+            input.val(jQuery(this).next().find('span').eq(0).html());
+            jQuery(this).next().find('span').eq(0).html('').append(input).removeClass('expression');
+            input.trigger('focus');
+        }).on('blur', '.input', function() {
+            var id = jQuery(this).parent().attr('x-id');
             var shape = search(table, id);
-            shape.target.name=jQuery(this).val();
+            shape.target.name = jQuery(this).val();
             jQuery(this).parent().html(jQuery(this).val()).addClass('editable');
-        }).on('blur','.textarea',function(){
-            var id=jQuery(this).parent().attr('x-id');
+        }).on('blur', '.textarea', function() {
+            var id = jQuery(this).parent().attr('x-id');
             var shape = search(table, id);
-            shape.target.name=jQuery(this).val();
+            shape.target.name = jQuery(this).val();
             jQuery(this).parent().html(jQuery(this).val()).addClass('expression');
-        }).on('click','.remove',function(){
-            var id=jQuery(this).attr('x-id');
-            var shape=search(table,id);
+        }).on('click', '.remove', function() {
+            if (!confirm('你确认删除这条数据吗?')) return;
+            var id = jQuery(this).attr('x-id');
+            var shape = search(table, id);
             // var last=shape.container[_.last(id.split('-'))];
-            shape.container.splice(_.last(id.split('-')),1);
+            shape.container.splice(_.last(id.split('-')), 1);
             update();
         });
 
         jqModal.on('click', '.submit', function() {
             var shape = search(table, id);
             var row = jQuery.extend(true, {}, shape.model, { name: jQuery('#inputEmail1').val() });
-            var double=_.find(shape.container,function(v,k,e){
-                return v.name==jQuery('#inputEmail1').val();
-            })
-            if(double){
+            var double = _.find(shape.container, function(v, k, e) {
+                return v.name == jQuery('#inputEmail1').val();
+            });
+            if (double) {
                 alert('请检查已有的数据，确保不和他们重复！');
                 return;
             }
@@ -100,20 +110,42 @@ function MaoEarth() {
             jqModal.modal('hide');
 
         });
-        jqSubmit.on('click',function(){
-            localStorage.setItem('__maoearch',JSON.stringify({
-                data:table
-            }))
+        jqSubmit.on('click', function() {
+            var static = renderStatic({
+                table: table
+            });
+            var data=JSON.stringify({
+                    data: table,
+                    html: static
+                });
+            localStorage.setItem('__maoearch', data);
+
+            getUrl({
+                url: 'test/prize.json',
+                data: data
+            }).then(function(remote) {
+                if (remote.code == 0) {
+                    alert('数据已经提交成功了!');
+                } else {
+                    alert(remote.error)
+                }
+            });
         });
     }
+
 
     function init() {
         listener();
     }
     return {
-        update:render,
-        render:update
+        update: render,
+        render: update
     }
+}
+
+
+function splitExpression(expression) {
+    return expression.split(/\n/);
 }
 
 var maoEarth = new MaoEarth();
