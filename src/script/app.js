@@ -66,14 +66,18 @@ function MaoEarth() {
             var input = jQuery('<textarea>');
             input.attr('rows', 10).attr('cols', 100);
             input.addClass('textarea');
-            input.val(jQuery(this).html());
+            input.val(_.reduce(jQuery(this).find('div'),function(c,v){
+                return c+jQuery(v).html()+'\n'
+            },''));
             jQuery(this).html('').append(input).removeClass('expression');
             input.trigger('focus');
         }).on('click', '.expression-wrapper', function() {
             var input = jQuery('<textarea>');
             input.attr('rows', 10).attr('cols', 100);
             input.addClass('textarea');
-            input.val(jQuery(this).next().find('span').eq(0).html());
+            input.val(_.reduce(jQuery(this).next().find('span').eq(0).find('div'),function(c,v){
+                return c+jQuery(v).html()+'\n'
+            },''));
             jQuery(this).next().find('span').eq(0).html('').append(input).removeClass('expression');
             input.trigger('focus');
         }).on('blur', '.input', function() {
@@ -85,7 +89,9 @@ function MaoEarth() {
             var id = jQuery(this).parent().attr('x-id');
             var shape = search(table, id);
             shape.target.name = jQuery(this).val();
-            jQuery(this).parent().html(jQuery(this).val()).addClass('expression');
+            jQuery(this).parent().html(_.reduce(jQuery(this).val().split(/\n/),function(c,v){
+                return c+'<div>'+v+'</div>';
+            },'')).addClass('expression');
         }).on('click', '.remove', function() {
             if (!confirm('你确认删除这条数据吗?')) return;
             var id = jQuery(this).attr('x-id');

@@ -38,7 +38,7 @@
                             <span class="fa fa-paste ui-draggable expression-wrapper" x-id="<%=id%>">
                         
                             </span>
-                            <span><span class="expression"  x-id="<%=id%>"><%=name%></span></span>
+                            <span><span class="expression"  x-id="<%=id%>"><%=_.reduce(name.split(/\n/),function(c,v){return c+'<div>'+v+'</div>'},'')%></span></span>
                     <%}else{%>
                             <span class="fa fa-times ui-draggable remove" x-id="<%=id%>">
                         
