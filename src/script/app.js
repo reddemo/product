@@ -49,7 +49,8 @@ function MaoEarth() {
             var jqThis = jQuery(this);
             id = jqThis.attr('x-id')
             jqModal.modal({
-                title: jqThis.html()
+                title: jqThis.html(),
+                keybord:false
             });
         }).on('click', '.editable,.expression', function() {
             // var 
