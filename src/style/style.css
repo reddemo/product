@@ -1,5 +1,7 @@
 
-
+body{
+  background-color:#EAEDF3;
+}
 .close {
   position: relative;
   display: inline-block;
@@ -124,4 +126,8 @@ table.treetable span{
 }
 .editable:hover{
   cursor: pointer;
+}
+.padding{
+  position: relative;
+  left: 126px;
 }

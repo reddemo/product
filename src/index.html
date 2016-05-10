@@ -9,22 +9,12 @@
     <link rel="shortcut icon" href="#" type="image/png">
     <title>买车帮</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/jquery-ui-1.10.3.css" rel="stylesheet">
     <link href="fonts/css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/fonts.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link href="css/style-responsive.css" rel="stylesheet">
     <link href="style/common.css" rel="stylesheet">
     <link href="style/style.css" rel="stylesheet">
     <link href="style/jquery.treetable.css" rel="stylesheet">
     <link href="style/jquery.treetable.theme.default.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
-    <!--nestable css-->
-    <link rel="stylesheet" type="text/css" href="js/nestable/jquery.nestable.css" />
     <script type="text/tpl" id="tr">
         <tr data-tt-id="<%=id%>" <%=father? 'data-tt-parent-id="'+father+ '" '+ 'style="display:none"':void 0%> class="leaf collapsed
             <%="type_"+type%>" >
@@ -38,7 +28,7 @@
                             <span class="fa fa-paste ui-draggable expression-wrapper" x-id="<%=id%>">
                         
                             </span>
-                            <span><span class="expression"  x-id="<%=id%>"><%=_.reduce(name.split(/\n/),function(c,v){return c+'<div>'+v+'</div>'},'')%></span></span>
+                            <span><span class="expression"  x-id="<%=id%>"><%=_.reduce(name.split(/\n/),function(c,v){return c+'<div class="padding">'+v+'</div>'},'')%></span></span>
                     <%}else{%>
                             <span class="fa fa-times ui-draggable remove" x-id="<%=id%>">
                         
@@ -123,102 +113,9 @@
     </script>
 </head>
 
-<body class="sticky-header left-side-collapsed">
+<body class="">
     <section id="bang-container">
-        <!-- left side start-->
-        <div class="left-side sticky-left-side bang-sider">
-            <!--logo and iconic logo start-->
-            <div class="logo">
-                <a href="index.html"><img src="images/logo-bang.png" alt=""></a>
-            </div>
-            <div class="logo-icon text-center">
-                <a href="index.html"><img src="images/logo_icon.png" alt=""></a>
-            </div>
-            <!--logo and iconic logo end-->
-            <div class="left-side-inner">
-                <!-- visible to small devices only -->
-                <!--sidebar nav start-->
-                <ul class="nav nav-pills nav-stacked custom-nav">
-                    <li><a href="index.html"><i class="fa fa-home"></i> <span>猫咪</span></a></li>
-                    <li class="menu-list nav-active"><a href=""><i class="fa fa-laptop"></i> <span>活动管理</span></a>
-                        <ul class="sub-menu-list">
-                            <li><a href="blank_page.html"> 活动列表</a></li>
-                            <li><a href="boxed_view.html"> 添加活动</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-list"><a href=""><i class="fa fa-book"></i> <span>经销商管理</span></a>
-                        <ul class="sub-menu-list">
-                            <li><a href="general.html"> 经销商列表</a></li>
-                            <li><a href="buttons.html"> 发票列表</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="login.html"><i class="fa fa-sign-in"></i> <span>退出</span></a></li>
-                </ul>
-                <!--sidebar nav end-->
-            </div>
-        </div>
-        <!-- left side end-->
-        <!-- main content start-->
-        <div class="main-content bang-main" style="padding-top:0;">
-            <nav class="navbar navbar-default bang-header" role="navigation">
-                <div class="container-fluid" style="padding-left:0;">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <a class="toggle-btn" style="margin-right:18px;"><i class="fa fa-bars"></i></a>
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">给我五分钟</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="index.html" style="background-color:#fff;margin-top:-10px;">
-                            <img src="img/emao-logo.png" alt="">
-                        </a>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="index.html">一猫买车帮</a></li>
-                            <li><a href="#">专题</a></li>
-                            <li>
-                                <a href="#">车讯</a>
-                            </li>
-                            <li><a href="#">广告平台</a></li>
-                            <li>
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">猫咪</a>
-                            </li>
-                        </ul>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        你好，喵星人! &nbsp&nbsp <span>liulu123@emao.com</span> <b class="caret"></b>
-                        </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">退出</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- /.navbar-collapse -->
-                </div>
-                <!-- /.container-fluid -->
-            </nav>
-            <!-- header section end-->
-            <!-- page heading start-->
-            <div class="page-heading bang-heading">
-                <div class="row">
-                    <div class="col-md-12">
-                        <!--breadcrumbs start -->
-                        <ul class="breadcrumb panel">
-                            <li><a href="#"><i class="fa fa-home"></i> 专题表单</a></li>
-                            <li class="active">表单生成</li>
-                        </ul>
-                        <!--breadcrumbs end -->
-                    </div>
-                </div>
-            </div>
-            <!-- page heading end-->
-            <!--body wrapper start-->
+        <div class="bang-main" style="padding-top:0;">
             <div class="wrapper bang-wrapper">
                 <div class="row">
                     <button class="btn btn-danger submitall">提交</button>
@@ -256,44 +153,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" id="loading-container" style="text-align:center;">
-                </div>
             </div>
-            <!--body wrapper end-->
-            <!--footer section start-->
-            <footer class="sticky-footer bang-footer" style="text-align:center;">
-                Have a nice day!
-            </footer>
-            <!--footer section end-->
         </div>
-        <!-- main content end-->
     </section>
-    <!-- Placed js at the end of the document so the pages load faster -->
     <script src="js/jquery-1.10.2.min.js"></script>
-    <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
-    <script src="js/jquery-migrate-1.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/modernizr.min.js"></script>
-    <script src="js/jquery.nicescroll.js"></script>
-    <!--data table-->
-    <script type="text/javascript" src="js/data-tables/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="js/data-tables/DT_bootstrap.js"></script>
-    <!--common scripts for all pages-->
-    <script src="js/scripts.js"></script>
-    <script src="js/es6-promise.min.js"></script>
     <script src="js/underscore.min.js"></script>
-    <!-- END JAVASCRIPTS -->
-    <script src="js/nestable/jquery.nestable.js"></script>
-    <script src="script/nestable-init.js"></script>
-    <script src="script/jquery-ui.min.js"></script>
-    <!--script for editable table-->
-    <link href="style/jquery.treetable.css" rel="stylesheet" type="text/css" />
-    <script src="script/jquery.ui.core.js"></script>
-    <script src="script/jquery.ui.widget.js"></script>
-    <script src="script/jquery.ui.mouse.js"></script>
-    <script src="script/jquery.ui.draggable.js"></script>
-    <script src="script/jquery.ui.droppable.js"></script>
-    <script src="script/jquery.treetable.js"></script>
+    <script src="js/jquery.treetable.js"></script>
     <script>
     var _table = JSON.parse(localStorage.getItem('__maoearch'))
 
@@ -571,9 +437,10 @@
         }]
     }];
     </script>
-    <script src="script/modal.js"></script>
-    <script src="script/geturl.js"></script>
-    <script src="script/app.js">
+    <!-- 模态框 -->
+    <script src="js/modal.js"></script>
+    <!-- 数据渲染 -->
+    <script src="js/app.js">
     </script>
 </body>
 

@@ -90,7 +90,7 @@ function MaoEarth() {
             var shape = search(table, id);
             shape.target.name = jQuery(this).val();
             jQuery(this).parent().html(_.reduce(jQuery(this).val().split(/\n/),function(c,v){
-                return c+'<div>'+v+'</div>';
+                return c+'<div class="padding">'+v+'</div>';
             },'')).addClass('expression');
         }).on('click', '.remove', function() {
             if (!confirm('你确认删除这条数据吗?')) return;
@@ -127,7 +127,10 @@ function MaoEarth() {
                 });
             localStorage.setItem('__maoearch', data);
 
-            getUrl({
+            $.ajax({
+                headers:{
+                    '_token': $('meta[name="csrf-token"]').attr('content')
+                },
                 url: 'test/prize.json',
                 data: data
             }).then(function(remote) {
