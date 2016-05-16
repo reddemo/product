@@ -23,35 +23,170 @@
   <![endif]-->
     <script type="text/tpl" id="formhtml">
         <li class="list-group-item entry" x-name="<%=name%>">
-            <span class="btn btn-info popovers mgr20px" data-trigger="hover" data-placement="bottom" data-content="type:text" data-original-title="name:<%=name%>">
-                <%=text%>
-            </span>
-            <span class="" href="#">
-            <%_.each(attrs,function(v,k,c){%>
-                <div class="inline-block mgr20px">
-                    <span class="label label-default">
-                        <%=v.text%>
-                    </span>
-            <sup class="close rounded  small">
-                    </sup>
-            </div>
-            <%});%>
+                <span class="btn btn-info popovers mgr20px" data-trigger="hover" data-placement="bottom" data-content="type:text" data-original-title="name:<%=name%>">
+                    <%=text%>
+                </span>
+                <span class="tag-wrapper" href="#"></span>
+                <%_.each(attrs,function(v,k,c){%>
+                    <div class="inline-block mgr20px">
+                        <span class="label label-default">
+                            <%=v.text%>
+                        </span>
+                        <sup class="close rounded  small">
+                        </sup>
+                    </div>
+                <%});%>
                 </span>
                 <div class="btn-group select floatright">
                     <button data-toggle="dropdown" class="btn btn-primary btn-sm dropdown-toggle">
                         <span style="width: 70px;" class="dropdown-label">自定义属性</span>
                         <span class="caret"></span>
                     </button>
-                    <ul class="dropdown-menu text-left text-sm">
-                        <li><a href="#">必填</a></li>
-                        <li><a href="#">中文</a></li>
-                        <li><a href="#">最小</a></li>
-                        <li><a href="#">最大</a></li>
+                    <ul class="dropdown-menu text-left text-sm js-custom">
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="中文" x-name="onlyChinese"><span style="display:inline-block;width:80px;">中文</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="英文" x-name="onlyEnglish"><span style="display:inline-block;width:80px;">英文</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="数字" x-name="onlyNumber"><span style="display:inline-block;width:80px;">数字</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="最小值" x-name="min" x-value="1"><span style="display:inline-block;width:80px;">最小值</span>
+                                <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="最大值" x-name="max" x-value="1"><span style="display:inline-block;width:80px;">最大值</span>
+                                <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="最小字符长度" x-name="minLength" x-value="1"><span style="display:inline-block;width:80px;">最小字符长度</span>
+                                <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="最大字符长度" x-name="maxLength" x-value="1"><span style="display:inline-block;width:80px;">最大字符长度</span>
+                                <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="正则" x-name="regexp" x-value="1"><span style="display:inline-block;width:80px;">正则</span>
+                                <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="回调" x-name="callback" x-value="1"><span style="display:inline-block;width:80px;">回调</span>
+                                <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                            </a>
+                        </li>
+                        <button type="submit" class="btn btn-primary js-attr-submit">提交</button>
+                    </ul>
+                </div>
+                <!--<span class="close rounded removeEntry">-->
+          </span>
+        </li>
+    </script>
+    <script type="text/tpl" id="formhtml2">
+        <li class="list-group-item entry" x-name="<%=name%>">
+                <span class="btn btn-info popovers mgr20px" data-trigger="hover" data-placement="bottom" data-content="type:text" data-original-title="name:<%=name%>">
+                    <%=text%>
+                </span>
+                <span class="tag-wrapper" href="#"></span>
+                <%_.each(attrs,function(v,k,c){%>
+                    <div class="inline-block mgr20px">
+                        <span class="label label-default">
+                            <%=v.text%>
+                        </span>
+                        <sup class="close rounded  small">
+                        </sup>
+                    </div>
+                <%});%>
+                </span>
+                <div class="btn-group select floatright">
+                    <button data-toggle="dropdown" class="btn btn-primary btn-sm dropdown-toggle">
+                        <span style="width: 70px;" class="dropdown-label">自定义属性</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu text-left text-sm js-custom">
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="中文" x-name="onlyChinese"><span style="display:inline-block;width:80px;">中文</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="英文" x-name="onlyEnglish"><span style="display:inline-block;width:80px;">英文</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="数字" x-name="onlyNumber"><span style="display:inline-block;width:80px;">数字</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="最小值" x-name="min" x-value="1"><span style="display:inline-block;width:80px;">最小值</span>
+                                <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="最大值" x-name="max" x-value="1"><span style="display:inline-block;width:80px;">最大值</span>
+                                <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="最小字符长度" x-name="minLength" x-value="1"><span style="display:inline-block;width:80px;">最小字符长度</span>
+                                <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="最大字符长度" x-name="maxLength" x-value="1"><span style="display:inline-block;width:80px;">最大字符长度</span>
+                                <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="正则" x-name="regexp" x-value="1"><span style="display:inline-block;width:80px;">正则</span>
+                                <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <input type="checkbox" class="js-check" x-text="回调" x-name="callback" x-value="1"><span style="display:inline-block;width:80px;">回调</span>
+                                <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                            </a>
+                        </li>
+                        <button type="submit" class="btn btn-primary js-attr-submit">提交</button>
                     </ul>
                 </div>
                 <span class="close rounded removeEntry">
           </span>
         </li>
+    </script>
+    <script type="text/tpl" id="tag">
+
+                <span class="tag" style="background-color: rgb(255, 255, 0);margin-right:10px;">
+                    <span><%=text%></span>
+                    <a href="#" title="Removing tag" x-name="<%=name%>">x</a>
+                </span>
     </script>
 </head>
 
@@ -198,7 +333,7 @@
                                             <li><a href="#">要求</a></li>
                                         </ul>
                                     </div> -->
-                                    <a href="javascript:;" class="btn btn-danger  btn-sm" id="add-max">提交</a>
+                                    <a href="javascript:;" class="btn btn-danger  btn-sm" id="submitform">提交</a>
                                 </div>
                             </header>
                             <section class="pannel">
@@ -206,7 +341,7 @@
                                     <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">标准对象</label>
                                     <div class="col-lg-10">
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox1" value="option1" name="mb" x-text="手机号"> 手机号
+                                            <input type="checkbox" id="inlineCheckbox1"  name="mb" x-text="手机号"> 手机号
                                         </label>
                                         <label class="checkbox-inline">
                                             <input type="checkbox" id="inlineCheckbox2" value="option2" name="age" x-text="年龄"> 年龄
