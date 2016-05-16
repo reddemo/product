@@ -63,7 +63,7 @@ function Form() {
     });
 
     $('#addExt').on('click', function() {
-        var name = _.uniqueId('ext-');
+        var name = _.uniqueId('ext');
         var jqInput = $(this);
         var jqText = jqInput.closest('.col-lg-10').find('input[type="text"]');
         var value=$.trim(jqText.val());
@@ -156,8 +156,20 @@ function Form() {
 var data = new Form();
 
 $('#submitform').on('click', function() {
-    if (_.keys(data.form).length == 0 && _.keys(data.exts).length == 0) {
+    if (_.keys(data.standard).length == 0 && _.keys(data.extended).length == 0) {
         alert('数据空！');
         return;
     }
+    var j=1;
+    var extended=_.reduce(data.extended,function(c,e,i){
+        c['ext'+j]=e;
+        e.name='ext'+j;
+        j++;
+        return c
+    },{});
+    var post={
+        standard:data.standard,
+        extended:extended
+    };
+    console.log(post);
 });
