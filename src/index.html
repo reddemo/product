@@ -21,13 +21,19 @@
   <script src="js/html5shiv.js"></script>
   <script src="js/respond.min.js"></script>
   <![endif]-->
+    <script type="text/javascript">
+    var config={
+        standard:{},
+        extended:{}
+    };
+    </script>
     <script type="text/tpl" id="formhtml">
         <li class="list-group-item entry" x-name="<%=name%>">
                 <span class="btn btn-info popovers mgr20px" data-trigger="hover" data-placement="bottom" data-content="type:text" data-original-title="name:<%=name%>">
                     <%=text%>
                 </span>
                 <span class="tag-wrapper" href="#"></span>
-                <%_.each(attrs,function(v,k,c){%>
+                <%_.each(common,function(v,k,c){%>
                     <div class="inline-block mgr20px">
                         <span class="label label-default">
                             <%=v.text%>
@@ -107,7 +113,7 @@
                     <%=text%>
                 </span>
                 <span class="tag-wrapper" href="#"></span>
-                <%_.each(attrs,function(v,k,c){%>
+                <%_.each(common,function(v,k,c){%>
                     <div class="inline-block mgr20px">
                         <span class="label label-default">
                             <%=v.text%>
@@ -364,10 +370,10 @@
     <script src="js/jquery-migrate-1.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/modernizr.min.js"></script>
-    <script src="js/jquery.nicescroll.js"></script>
     <!-- END JAVASCRIPTS -->
     <!--script for editable table-->
     <script src="script/underscore.js"></script>
+    <script src="script/fn.js"></script>
     <script src="script/app.js">
     </script>
 </body>

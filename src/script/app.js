@@ -4,40 +4,11 @@
 // });
 // editableTable.init();
 function Form() {
-    var _form = {
-        'mb': {
-            name: 'mb',
-            text: '手机号',
-            attrs: {
-                'required': {
-                    name: 'required',
-                    text: '必填'
-                }
-            }
-        }
-    };
-    var form = {};
-    var exts = {};
+    var standard = config.standard;
+    var exts = config.extended;
     var renderField = _.template($('#formhtml').html());
     var renderField2 = _.template($('#formhtml2').html());
     var renderAttr = _.template($('#tag').html());
-    // var markup = renderField({
-    //     name: 'mb',
-    //     text: '手机号',
-    //     attrs: [{
-    //         name: 'required',
-    //         text: '必填',
-    //         value: ''
-    //     }, {
-    //         name: 'required',
-    //         text: '必填',
-    //         value: ''
-    //     }, {
-    //         name: 'required',
-    //         text: '必填',
-    //         value: ''
-    //     }]
-    // });
 
     $('.standard-entry').on('change', 'input', function() {
         var jqInput = $(this);
@@ -47,17 +18,17 @@ function Form() {
             var html = renderField({
                 name: jqInput.attr('name'),
                 text: jqInput.attr('x-text'),
-                attrs: []
+                common: []
             });
-            form[jqInput.attr('name')] = {
+            standard[jqInput.attr('name')] = {
                 name: jqInput.attr('name'),
                 text: jqInput.attr('x-text'),
-                attrs: []
+                common: []
             }
             $('.list-group ').prepend(html);
         } else {
             $('[x-name="' + jqInput.attr('name') + '"]', '.list-group').remove();
-            delete form[jqInput.attr('name')]
+            delete standard[jqInput.attr('name')]
         }
 
     });
@@ -86,14 +57,14 @@ function Form() {
             var html = renderField2({
                 name: name,
                 text: value,
-                attrs: {}
+                common: {}
             });
             jqText.val('');
             $('.list-group ').prepend(html);
             exts[name] = {
                 name: name,
                 text: value,
-                attrs: {}
+                common: {}
             };
         }
 
@@ -104,7 +75,7 @@ function Form() {
         var tag = $(this).attr('x-name');
         $(this).parent().remove();
 
-        delete form[name].attrs[tag];
+        delete standard[name].common[tag];
 
     });
 
@@ -133,7 +104,7 @@ function Form() {
                 }
             }
         });
-        var attrs = _.reduce(checked, function(c, e, i) {
+        var common = _.reduce(checked, function(c, e, i) {
             c[$(e).attr('x-name')] = {
                 name: $(e).attr('x-name'),
                 text: $(e).attr('x-text'),
@@ -141,14 +112,18 @@ function Form() {
             };
             return c;
         }, {});
-        form[$(this).closest('.entry').attr('x-name')].attrs = attrs;
-        $(this).closest('.entry').find('.tag-wrapper').html(_.reduce(attrs, function(c, e, i) {
+        if(/ext\d/.test($(this).closest('.entry').attr('x-name'))){
+            exts[$(this).closest('.entry').attr('x-name')].common = common;
+        }else{
+            standard[$(this).closest('.entry').attr('x-name')].common = common;
+        }
+        $(this).closest('.entry').find('.tag-wrapper').html(_.reduce(common, function(c, e, i) {
             return c + renderAttr(e);
         }, ''));
         $(document).trigger('click');
     });
     return {
-        standard: form,
+        standard: standard,
         extended: exts
     };
 }
@@ -169,7 +144,8 @@ $('#submitform').on('click', function() {
     },{});
     var post={
         standard:data.standard,
-        extended:extended
+        extended:extended,
+        entire:_.extend(data.standard,extended)
     };
     console.log(post);
 });
