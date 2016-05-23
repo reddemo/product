@@ -6,7 +6,7 @@ var fields = {
         rules: {
             'zh': {
                 failure: false, //默认为false
-                value: null, //默认为空，提供一些配置参数
+                value: null //默认为空，提供一些配置参数
             },
             'minLength': {
                 value: 2
@@ -18,12 +18,12 @@ var fields = {
     },
     'phone': {
         rules: {
-            'number': {},
+            'number': {}
         }
     },
     'age': {
         rules: {
-            'number': {},
+            'number': {}
         }
     }
 };
@@ -33,37 +33,31 @@ var rules = { //支持函数、正则、字符串
         type: 'function',
         error: '必须是中文',
         predicator: function(value) {
-            return false;
+            return !(/[^\u4E00-\u9FFF]/).test(value)&&value!=='';
         },
         id: 1
     },
     'number': {
         type: 'function',
         error: '必须是数字',
-        predicator: function(value) {
-            return false;
-        },
+        predicator: /^\d+$/,
         id: 2
-    },
-    'xxxxxx': {
-        type: 'regexp',
-        error: '不能有连续留个相同的字符',
-        failure: true,
-        id: 3
     },
     'minLength': {
         type: 'function',
         error: '低于最小范围',
-        predicator: function(value) {
-            return false;
+        predicator: function(value,config) {
+
+            // console.log(value,config)
+            return value.length>=config
         },
         id: 4
     },
     'maxLength': {
         type: 'function',
         error: '超出最大范围',
-        predicator: function(value) {
-            return false;
+        predicator: function(value,config) {
+            return value.length<=config;
         },
         id: 5
     }
@@ -81,7 +75,7 @@ var rules = { //支持函数、正则、字符串
                 "common": []
             },
             "phone": {
-                "name": "name",
+                "name": "phone",
                 "text": "姓名",
                 "common": {
                     "minLength": {
@@ -97,31 +91,64 @@ var rules = { //支持函数、正则、字符串
     var test = _token.entire.ext1;
 
 
-    function check(xs) {
-        return y.reduce(xs, function(s, x, i, v) {
+    function checks(xs) {//生成表单的校验逻辑
+        var a=y.reduce(xs, function(s, x, i, v) {
             var v = validators(rules, x);
             var k = v.fieldName;
             return y.conj(s, k, v);
         }, {});
+        return a;
     }
 
-    function validators(rules, field) {
+    function validators(rules, field) {//生成输入域的校验逻辑
         var seed = y.reduce(fields[field.name].rules, function(s, x, i, v) {
             var rule = rules[i];
-            return y.conj(s, y.validator(rule.predicator, rule.error, rule.failure || false));
+            return y.conj(s, y.validator(rule.predicator, rule.error, rule.failure || false,x.value));
         }, []);
         seed= y.reduce(field.common, function(s, x, i, v) {
             var rule = rules[i];
-            return y.conj(s, y.validator(rule.predicator, rule.error, rule.failure || false));
+            return y.conj(s, y.validator(rule.predicator, rule.error, rule.failure || false,x.value));
         }, seed);
 
         seed.fieldName = field.name;
         return seed;
     }
 
-    // var ooo=validators(rules,test);
-    console.log(check(_token.entire));
+    function inputs(form,names){//获取表单下的所有输入域
+        var $form=$(form);
+        return y.reduce(names,function(s,x,k,names){
+            return y.conj(s,x,$form.find('[name="'+x+'"]'));
+        },{});
+    }
+    function submit(form){//监听提交事件
+        var $submit=$(form).find('[type="_su"]');
+        $submit.on('click',function(){
+            var vals=y.reduce(_inputs,function(s,x,k,_inputs){
+                return y.conj(s,k,x.val());
+            },{});//所有合法的用户的输入域的值
+            y.reduce(_checks,function(s,x,k,_checks){
+                var r=and(x,vals[k]);
+                console.log(r)
+                return y.conj(s,0)
+            },[]);
+            return false;
+        });
+    }
 
+    function and(fns){
+        var _first=y.first(fns);
+        var _rest=y.rest(fns);
+        var args=y.rest(arguments);
+        if(!y.count(fns)){
+            return true;
+        }else{
+            return y.apply(_first,null,args)==_first.failure?_first.error:y.apply(and,null,y.cat([_rest],args))
+        }
+    }
+
+    var _checks=checks(_token.entire)
+    var _inputs=inputs('#test',y.keys(_token.entire));
+    submit('#test');
 
 }(function fx() {
     var root = typeof self === 'object' && self.self === self && self ||
@@ -183,6 +210,12 @@ var rules = { //支持函数、正则、字符串
     var every = dispatch(invoker('every', _every_), _every);
     var keys = dispatch(_keys_, _keys);
 
+    function count(x){
+        return isArrayLike(x)?x.length:(
+            isObject(x)?keys(x).length:1
+        );
+    }
+
     function fail(thing) {
         throw new Error(thing);
     }
@@ -205,6 +238,12 @@ var rules = { //支持函数、正则、字符串
 
     function truthy(x) {
         return existy(x) && x !== false;
+    }
+
+
+
+    function and(){
+        
     }
 
     function toArray(x) {
@@ -332,7 +371,6 @@ var rules = { //支持函数、正则、字符串
 
 
     function object() {
-        // console.log(arguments)
         var matrix = reduce(arguments, function(s, v, k, args) {
             var cur=s.length-1;
             return k & 1 ? (s[cur]=conj(s[cur], v),s) : conj(s, [v]);
@@ -352,7 +390,7 @@ var rules = { //支持函数、正则、字符串
     }
 
     function _keys(x) {
-        if (not(isObject(x))) return [];
+        if (!isObject(x)) return [];
         var keys = [];
         for (var i in x) {
             if (has(x, i)) {
@@ -375,7 +413,6 @@ var rules = { //支持函数、正则、字符串
     }
 
     function _reduce(array, cb, seed, context) { //处理序列
-        console.log(isArrayLike(array))
         if (!isArrayLike(array)) return;
         var length = array.length;
         var start = 0;
@@ -390,7 +427,6 @@ var rules = { //支持函数、正则、字符串
     }
 
     function _reduce2(obj, cb, seed, context) { //处理表
-        console.log(isObject(obj))
         if (!isObject(obj)) return;
         var _keys = keys(obj);
         var start = 0;
@@ -556,13 +592,14 @@ var rules = { //支持函数、正则、字符串
         }
     }
 
-    function validator(fn, error, failure) {
-        var wapper = function(x) {
-            return isFunction(fn) ? fn(x) : (isRegExp(x) ? (fn.test(x)) : undefined);
-        };
-        wapper.failure = failure;
-        wapper.error = error;
-        return wapper;
+    function validator(fn, error, failure,value) {
+        function _wrapper(x,value) {
+            return isFunction(fn) ? fn(x,value) : (isRegExp(fn) ? (fn.test(x)) : false);
+        }
+        var wrapper=existy(value)?curry2r(_wrapper)(value):curry1(_wrapper);
+        wrapper.failure = failure;
+        wrapper.error = error;
+        return wrapper;
     }
 
     function checker(validators) {
@@ -795,6 +832,8 @@ var rules = { //支持函数、正则、字符串
     var _hash = { //70
         existy: existy,
         truthy: truthy,
+        and:and,
+        count:count,
         falsey: falsey,
         nothingify: nothingify,
         not: not,
@@ -912,3 +951,6 @@ function small(x,y){
 }
 
 big()
+$('#test').find('button').click(function(){
+    return false;
+});
