@@ -1,154 +1,142 @@
-/**
- * require $ for querying and event
- */
-var fields = {
-    'name': {
-        rules: {
-            'zh': {
-                failure: false, //默认为false
-                value: null //默认为空，提供一些配置参数
-            },
-            'minLength': {
-                value: 2
-            },
-            'maxLength': {
-                value: 4
-            }
-        }
-    },
-    'phone': {
-        rules: {
-            'number': {}
-        }
-    },
-    'age': {
-        rules: {
-            'number': {}
-        }
-    }
-};
-
-var rules = { //支持函数、正则、字符串
-    'zh': {
-        type: 'function',
-        error: '必须是中文',
-        predicator: function(value) {
-            return !(/[^\u4E00-\u9FFF]/).test(value)&&value!=='';
-        },
-        id: 1
-    },
-    'number': {
-        type: 'function',
-        error: '必须是数字',
-        predicator: /^\d+$/,
-        id: 2
-    },
-    'minLength': {
-        type: 'function',
-        error: '低于最小范围',
-        predicator: function(value,config) {
-
-            // console.log(value,config)
-            return value.length>=config
-        },
-        id: 4
-    },
-    'maxLength': {
-        type: 'function',
-        error: '超出最大范围',
-        predicator: function(value,config) {
-            return value.length<=config;
-        },
-        id: 5
-    }
-};;
-(function(y, root, $) {
-    //生成检测器 
-    window.y = y;
-
-
-    var _token = {
-        "entire": {
-            "age": {
-                "name": "age",
-                "text": "年龄",
-                "common": []
-            },
-            "phone": {
-                "name": "phone",
-                "text": "姓名",
-                "common": {
-                    "minLength": {
-                        "name": "min",
-                        "text": "最小值",
-                        "value": "3"
+;(function(y, root, $) {
+    function Form() {
+        var $form = $('.emao-zt-form').eq(0);
+        var conf=parse()||
+        {//测试数据
+            token:{
+                "age": {
+                    "name": "age",
+                    "text": "年龄",
+                    "common": []
+                },
+                "phone": {
+                    "name": "phone",
+                    "text": "手机号",
+                    "common": {
+                        "minLength": {
+                            "name": "min",
+                            "text": "最小值",
+                            "value": "3"
+                        }
                     }
                 }
+            },
+            id:3
+        };
+
+
+
+        var $submit = $form.find('.emao-zt-submit');
+        var _checks = checks(conf.token)
+        var _inputs = inputs(y.keys(conf.token));
+        
+        var http=y.throttle(http,3000);
+        
+        function init(){
+            listenToDom();
+        }
+
+        function checks(xs) { //生成表单的校验逻辑
+            var a = y.reduce(xs, function(s, x, i, v) {
+                var v = validators(rules, x);
+                var k = v.fieldName;
+                v.text = x.text;
+                return y.conj(s, k, v);
+            }, {});
+            return a;
+        }
+
+        function validators(rules, field) { //生成输入域的校验逻辑
+            var seed = y.reduce(fields[field.name].rules, function(s, x, i, v) {
+                var rule = rules[i];
+                return y.conj(s, y.validator(rule.predicator, rule.error, rule.failure || false, x.value));
+            }, []);
+            seed = y.reduce(field.common, function(s, x, i, v) {
+                var rule = rules[i];
+                return y.conj(s, y.validator(rule.predicator, rule.error, rule.failure || false, x.value));
+            }, seed);
+
+            seed.fieldName = field.name;
+            return seed;
+        }
+
+        function inputs(names) { //获取表单下的所有输入域
+            return y.reduce(names, function(s, x, k, names) {
+                return y.conj(s, x, $form.find('[name="' + x + '"]'));
+            }, {});
+        }
+
+        function parse(){
+            var r;
+            try{
+                r=$.parseJSON(decodeURI($form.attr('x-conf')));
+                return r;
+            }catch(error){
+                throw error;
             }
         }
-    };
 
-    var test = _token.entire.ext1;
+        function listenToDom(form) { //监听提交事件
+            $submit.on('click', function() {
+                var vals = y.reduce(_inputs, function(s, x, k, _inputs) {
+                    return y.conj(s, k, $.trim(x.val()));
+                }, {}); //所有合法的用户的输入域的值
+                var r = col(y.sequence(_checks), vals, 0);
+                if (y.isString(r)) {
+                    console.log(['数据校验失败了，理由如下', r].join(':'));
+                } else {
+                    http({data:r,id:conf.id});
+                }
+                return false;
+            });
+        }
 
+        function http(data){//提交数据
+            $.ajax({
+                        url: '',
+                        type: 'post',
+                        data: data,
+                        success: function() {
 
-    function checks(xs) {//生成表单的校验逻辑
-        var a=y.reduce(xs, function(s, x, i, v) {
-            var v = validators(rules, x);
-            var k = v.fieldName;
-            return y.conj(s, k, v);
-        }, {});
-        return a;
-    }
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+        }
 
-    function validators(rules, field) {//生成输入域的校验逻辑
-        var seed = y.reduce(fields[field.name].rules, function(s, x, i, v) {
-            var rule = rules[i];
-            return y.conj(s, y.validator(rule.predicator, rule.error, rule.failure || false,x.value));
-        }, []);
-        seed= y.reduce(field.common, function(s, x, i, v) {
-            var rule = rules[i];
-            return y.conj(s, y.validator(rule.predicator, rule.error, rule.failure || false,x.value));
-        }, seed);
+        function row(predictors, val, text) { //惰性计算field的每个谓词
+            var _first = y.first(predictors);
+            var _rest = y.rest(predictors);
+            var args = y.rest(arguments);
+            if (!y.count(predictors)) {
+                return true;
+            } else {
+                return y.apply(_first, null, args) == _first.failure ? text + _first.error : y.apply(row, null, y.cat([_rest], args))
+            }
+        }
 
-        seed.fieldName = field.name;
-        return seed;
-    }
+        function col(checks, vals) { //惰性计算每个field
+            var _first = y.first(checks);
+            var length = y.count(checks);
+            if (!length) {
+                return vals;
+            } else {
+                var _curVal = vals[_first[0]];
+                var _curCheck = _first[1];
+                var _rest = y.rest(checks);
+                var r = row(_curCheck, _curVal, _curCheck.text);
+                return r === true ? col(_rest, vals) : r;
+            }
+        }
 
-    function inputs(form,names){//获取表单下的所有输入域
-        var $form=$(form);
-        return y.reduce(names,function(s,x,k,names){
-            return y.conj(s,x,$form.find('[name="'+x+'"]'));
-        },{});
-    }
-    function submit(form){//监听提交事件
-        var $submit=$(form).find('[type="_su"]');
-        $submit.on('click',function(){
-            var vals=y.reduce(_inputs,function(s,x,k,_inputs){
-                return y.conj(s,k,x.val());
-            },{});//所有合法的用户的输入域的值
-            y.reduce(_checks,function(s,x,k,_checks){
-                var r=and(x,vals[k]);
-                console.log(r)
-                return y.conj(s,0)
-            },[]);
-            return false;
-        });
-    }
-
-    function and(fns){
-        var _first=y.first(fns);
-        var _rest=y.rest(fns);
-        var args=y.rest(arguments);
-        if(!y.count(fns)){
-            return true;
-        }else{
-            return y.apply(_first,null,args)==_first.failure?_first.error:y.apply(and,null,y.cat([_rest],args))
+        return {
+            init:init
         }
     }
 
-    var _checks=checks(_token.entire)
-    var _inputs=inputs('#test',y.keys(_token.entire));
-    submit('#test');
+    var form=new Form;
+    form.init();
 
 }(function fx() {
     var root = typeof self === 'object' && self.self === self && self ||
@@ -210,9 +198,9 @@ var rules = { //支持函数、正则、字符串
     var every = dispatch(invoker('every', _every_), _every);
     var keys = dispatch(_keys_, _keys);
 
-    function count(x){
-        return isArrayLike(x)?x.length:(
-            isObject(x)?keys(x).length:1
+    function count(x) {
+        return isArrayLike(x) ? x.length : (
+            isObject(x) ? keys(x).length : 1
         );
     }
 
@@ -242,8 +230,8 @@ var rules = { //支持函数、正则、字符串
 
 
 
-    function and(){
-        
+    function and() {
+
     }
 
     function toArray(x) {
@@ -290,6 +278,16 @@ var rules = { //支持函数、正则、字符串
         }
     }
 
+    function throttle(fn, delay, context) {
+        var last = 0;
+        return function() {
+            var cur = +new Date;
+            if (cur - last <= delay) return;
+            last = cur;
+            return apply(fn, context, arguments);
+        }
+    }
+
     function curry2(fn) {
         return function(arg1) {
             return function(arg2) {
@@ -326,7 +324,7 @@ var rules = { //支持函数、正则、字符串
     }
 
     function rest(x) {
-        return existy(x)?call(_slice_, x, 1):[];
+        return existy(x) ? call(_slice_, x, 1) : [];
     }
 
     function nth(x, key) {
@@ -358,13 +356,13 @@ var rules = { //支持函数、正则、字符串
         var _xs;
         var _rest;
         if (isArrayLike(xs)) {
-            _xs=toArray(xs);
-            apply(_push_,_xs,rest(arguments));
+            _xs = toArray(xs);
+            apply(_push_, _xs, rest(arguments));
             return _xs;
-        }else if(isObject(xs)){
-            _rest=rest(arguments);
+        } else if (isObject(xs)) {
+            _rest = rest(arguments);
             var n;
-            return mixin({},xs,apply(object,null,_rest));
+            return mixin({}, xs, apply(object, null, _rest));
         }
         return [];
     }
@@ -372,8 +370,8 @@ var rules = { //支持函数、正则、字符串
 
     function object() {
         var matrix = reduce(arguments, function(s, v, k, args) {
-            var cur=s.length-1;
-            return k & 1 ? (s[cur]=conj(s[cur], v),s) : conj(s, [v]);
+            var cur = s.length - 1;
+            return k & 1 ? (s[cur] = conj(s[cur], v), s) : conj(s, [v]);
         }, []);
         return reduce(matrix, function(s, v, k, matrix) {
             return _assoc(s, v[0], v[1]);
@@ -424,6 +422,12 @@ var rules = { //支持函数、正则、字符串
             seed = call(cb, context, seed, array[i], i, array);
         }
         return seed;
+    }
+
+    function sequence(x) {
+        return isObject(x) ? reduce(x, function(s, x, k, v) {
+            return conj(s, [k, x]);
+        }, []) : toArray(x);
     }
 
     function _reduce2(obj, cb, seed, context) { //处理表
@@ -592,11 +596,11 @@ var rules = { //支持函数、正则、字符串
         }
     }
 
-    function validator(fn, error, failure,value) {
-        function _wrapper(x,value) {
-            return isFunction(fn) ? fn(x,value) : (isRegExp(fn) ? (fn.test(x)) : false);
+    function validator(fn, error, failure, value) {
+        function _wrapper(x, value) {
+            return isFunction(fn) ? fn(x, value) : (isRegExp(fn) ? (fn.test(x)) : false);
         }
-        var wrapper=existy(value)?curry2r(_wrapper)(value):curry1(_wrapper);
+        var wrapper = existy(value) ? curry2r(_wrapper)(value) : curry1(_wrapper);
         wrapper.failure = failure;
         wrapper.error = error;
         return wrapper;
@@ -828,12 +832,56 @@ var rules = { //支持函数、正则、字符串
         }
     }
 
+    function abs(x) {
+        return x > 0 ? x : -x; }
+
+    function add(x, y) {
+        return x + y; }
+
+    function sub(x, y) {
+        return x - y; }
+
+    function mul(x, y) {
+        return x * y; }
+
+    function div(x, y) {
+        return x / y; }
+
+    function rem(x, y) {
+        return x & y; }
+
+    function inc(x) {
+        return x + 1 };
+
+    function dec(x) {
+        return x - 1 };
+
+    function equal(x, y) {
+        return x == y };
+
+    function gt(x, y) {
+        return x > y; }
+
+    function lt(x, y) {
+        return x < y; }
+
+    function negative(x) {
+        return x < 0; }
+
+    function positive(x) {
+        return x < 0; }
+
+    function sin(x) {
+        return Math.sin(x); }
+
+    function cos(x) {
+        return Math.cos(x); }
     //member table
     var _hash = { //70
         existy: existy,
         truthy: truthy,
-        and:and,
-        count:count,
+        and: and,
+        count: count,
         falsey: falsey,
         nothingify: nothingify,
         not: not,
@@ -843,7 +891,7 @@ var rules = { //支持函数、正则、字符串
         toString: toString,
         type: type,
         isRegExp: isRegExp,
-        isArrayLike:isArrayLike,
+        isArrayLike: isArrayLike,
         isFunction: isFunction,
         isArray: isArray,
         isObject: isObject,
@@ -864,6 +912,7 @@ var rules = { //支持函数、正则、字符串
         partial: partial,
         iterateUntil: iterateUntil,
         toArray: toArray,
+        sequence: sequence,
         keys: keys,
         slice: slice,
         shift: shift,
@@ -896,6 +945,7 @@ var rules = { //支持函数、正则、字符串
         invoker: invoker,
         pluck: pluck,
         fnull: fnull,
+        throttle: throttle,
         when: when,
         always: always,
         identity: identity,
@@ -937,20 +987,20 @@ var rules = { //支持函数、正则、字符串
 }(), this, $));
 
 
-function big(){
-    var big1=1;
-    var big2=2;
+function big() {
+    var big1 = 1;
+    var big2 = 2;
     var sum;
-    return sum=small(big1,big2);
+    return sum = small(big1, big2);
 }
 
-function small(x,y){
-    var a=333;
-    var sum=x+y;
+function small(x, y) {
+    var a = 333;
+    var sum = x + y;
     return sum
 }
 
 big()
-$('#test').find('button').click(function(){
+$('#test').find('button').click(function() {
     return false;
 });

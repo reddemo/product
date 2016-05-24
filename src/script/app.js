@@ -37,17 +37,17 @@ function Form() {
         var name = _.uniqueId('ext');
         var jqInput = $(this);
         var jqText = jqInput.closest('.col-lg-10').find('input[type="text"]');
-        var value=$.trim(jqText.val());
+        var value = $.trim(jqText.val());
         if (value) {
-            
-            if (_.keys(exts).length >=5) {
+
+            if (_.keys(exts).length >= 5) {
                 alert('扩展属性最多只能有五个');
                 return;
             }
 
-            _.map(exts,function(e,i){
-                console.log(e,value)
-                if(value==e.text){
+            _.map(exts, function(e, i) {
+                console.log(e, value)
+                if (value == e.text) {
                     alert('重复了，请修改后再提交');
                     throw '数据校验失败';
                 }
@@ -112,9 +112,9 @@ function Form() {
             };
             return c;
         }, {});
-        if(/ext\d/.test($(this).closest('.entry').attr('x-name'))){
+        if (/ext\d/.test($(this).closest('.entry').attr('x-name'))) {
             exts[$(this).closest('.entry').attr('x-name')].common = common;
-        }else{
+        } else {
             standard[$(this).closest('.entry').attr('x-name')].common = common;
         }
         $(this).closest('.entry').find('.tag-wrapper').html(_.reduce(common, function(c, e, i) {
@@ -135,17 +135,31 @@ $('#submitform').on('click', function() {
         alert('数据空！');
         return;
     }
-    var j=1;
-    var extended=_.reduce(data.extended,function(c,e,i){
-        c['ext'+j]=e;
-        e.name='ext'+j;
+    var j = 1;
+    var extended = _.reduce(data.extended, function(c, e, i) {
+        c['ext' + j] = e;
+        e.name = 'ext' + j;
         j++;
         return c
-    },{});
-    var post={
-        standard:data.standard,
-        extended:extended,
-        entire:_.extend(data.standard,extended)
+    }, {});
+    var post = {
+        standard: data.standard,
+        extended: extended,
+        entire: _.extend(data.standard, extended)
     };
-    console.log(post);
+
+    function renderForm(conf) {
+
+        var tplInput = _.template('<input name="<%=name%>" >');
+        var inputs = _.map(conf.token, function(x, k, entire) {
+            return tplInput({ name: k });
+        });
+        inputs.push('<input class="emao-zt-submit">');
+        var html = '<form class="emao-zt-form" x-conf="' + encodeURI(JSON.stringify({
+            token: conf.token,
+            id: conf.id
+        })) + '">' + '\n  ' + inputs.join('\n  ') + '\n</form>';
+
+        return html;
+    }
 });
