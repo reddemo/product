@@ -9,6 +9,28 @@ function Form() {
     var renderField = _.template($('#formhtml').html());
     var renderField2 = _.template($('#formhtml2').html());
     var renderAttr = _.template($('#tag').html());
+    var renderFields=_.template($('#tplfields').html());
+
+    var allfield1=config.standard;
+    var allfield2=config.extended;
+
+    var allfield1HTML=_.reduce(allfield1,function(s,x,k,allfield1){
+        return s+renderField(x);
+    },'');
+    var allfield2HTML=_.reduce(allfield2,function(s,x,k,allfield2){
+        return s+renderField2(x);
+    },'');
+    var allfieldsHTML=allfield1HTML+allfield2HTML;
+
+    $('.list-group ').html(allfieldsHTML);
+    //渲染表单域集合
+    var fields=renderFields(config.fields);
+    $('.fieldswp').html(fields);
+
+    var checkedFields=_.map(config.standard,function(x,k,standard){
+        return '.fieldswp [name="'+k+'"]'
+    });
+    $(checkedFields.join(',')).attr('checked',true);
 
     $('.standard-entry').on('change', 'input', function() {
         var jqInput = $(this);
@@ -46,7 +68,6 @@ function Form() {
             }
 
             _.map(exts, function(e, i) {
-                console.log(e, value)
                 if (value == e.text) {
                     alert('重复了，请修改后再提交');
                     throw '数据校验失败';
