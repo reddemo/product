@@ -55,11 +55,14 @@ function Form() {
 
     });
 
+    // console.log($('#addExt'))
+
     $('#addExt').on('click', function() {
         var name = _.uniqueId('ext');
         var jqInput = $(this);
         var jqText = jqInput.closest('.col-lg-10').find('input[type="text"]');
         var value = $.trim(jqText.val());
+        console.log(value)
         if (value) {
 
             if (_.keys(exts).length >= 5) {
@@ -168,6 +171,11 @@ $('#submitform').on('click', function() {
         extended: extended,
         entire: _.extend(data.standard, extended)
     };
+
+    console.log(encodeURI(JSON.stringify({
+        token:post.entire,
+        id:3
+    })))
 
     function renderForm(conf) {
 

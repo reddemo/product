@@ -37,15 +37,15 @@
             "mb": {
                 "name": "mb",
                 "text": "手机号",
-                "common": []
+                "common": {}
             },
             "age": {
                 "name": "age",
                 "text": "年龄",
                 "common": {
-                    "onlyChinese": {
-                        "name": "onlyChinese",
-                        "text": "中文",
+                    "int": {
+                        "name": "int",
+                        "text": "整数",
                         "value": ""
                     }
                 }
@@ -54,10 +54,10 @@
         "extended": {
             "ext1": {
                 "name": "ext1",
-                "text": "都是",
+                "text": "扩展1",
                 "common": {
-                    "onlyChinese": {
-                        "name": "onlyChinese",
+                    "zh": {
+                        "name": "zh",
                         "text": "中文",
                         "value": ""
                     }
@@ -75,9 +75,9 @@
                 "name": "age",
                 "text": "年龄",
                 "common": {
-                    "onlyChinese": {
-                        "name": "onlyChinese",
-                        "text": "中文",
+                    "int": {
+                        "name": "int",
+                        "text": "整数",
                         "value": ""
                     }
                 }
@@ -86,8 +86,8 @@
                 "name": "ext1",
                 "text": "都是",
                 "common": {
-                    "onlyChinese": {
-                        "name": "onlyChinese",
+                    "zh": {
+                        "name": "zh",
                         "text": "中文",
                         "value": ""
                     }
@@ -119,29 +119,27 @@
                         <ul class="dropdown-menu text-left text-sm js-custom">
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="中文" x-name="onlyChinese"><span style="display:inline-block;width:80px;">中文</span>
+                                    <input type="checkbox" class="js-check" x-text="中文" x-name="zh"><span style="display:inline-block;width:80px;">中文</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="英文" x-name="onlyEnglish"><span style="display:inline-block;width:80px;">英文</span>
+                                    <input type="checkbox" class="js-check" x-text="英文" x-name="en"><span style="display:inline-block;width:80px;">英文</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="数字" x-name="onlyNumber"><span style="display:inline-block;width:80px;">数字</span>
+                                    <input type="checkbox" class="js-check" x-text="整数" x-name="int"><span style="display:inline-block;width:80px;">整数</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="最小值" x-name="min" x-value="1"><span style="display:inline-block;width:80px;">最小值</span>
-                                    <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                                    <input type="checkbox" class="js-check" x-text="非必填" x-name="alt"><span style="display:inline-block;width:80px;">非必填</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="最大值" x-name="max" x-value="1"><span style="display:inline-block;width:80px;">最大值</span>
-                                    <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                                    <input type="checkbox" class="js-check" x-text="唯一" x-name="unique"><span style="display:inline-block;width:80px;">唯一</span>
                                 </a>
                             </li>
                             <li>
@@ -153,18 +151,6 @@
                             <li>
                                 <a href="#">
                                     <input type="checkbox" class="js-check" x-text="最大字符长度" x-name="maxLength" x-value="1"><span style="display:inline-block;width:80px;">最大字符长度</span>
-                                    <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="正则" x-name="regexp" x-value="1"><span style="display:inline-block;width:80px;">正则</span>
-                                    <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="回调" x-name="callback" x-value="1"><span style="display:inline-block;width:80px;">回调</span>
                                     <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
                                 </a>
                             </li>
@@ -197,29 +183,27 @@
                         <ul class="dropdown-menu text-left text-sm js-custom">
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="中文" x-name="onlyChinese"><span style="display:inline-block;width:80px;">中文</span>
+                                    <input type="checkbox" class="js-check" x-text="中文" x-name="zh"><span style="display:inline-block;width:80px;">中文</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="英文" x-name="onlyEnglish"><span style="display:inline-block;width:80px;">英文</span>
+                                    <input type="checkbox" class="js-check" x-text="英文" x-name="en"><span style="display:inline-block;width:80px;">英文</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="数字" x-name="onlyNumber"><span style="display:inline-block;width:80px;">数字</span>
+                                    <input type="checkbox" class="js-check" x-text="整数" x-name="int"><span style="display:inline-block;width:80px;">整数</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="最小值" x-name="min" x-value="1"><span style="display:inline-block;width:80px;">最小值</span>
-                                    <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                                    <input type="checkbox" class="js-check" x-text="非必填" x-name="alt"><span style="display:inline-block;width:80px;">非必填</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="最大值" x-name="max" x-value="1"><span style="display:inline-block;width:80px;">最大值</span>
-                                    <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                                    <input type="checkbox" class="js-check" x-text="唯一" x-name="unique"><span style="display:inline-block;width:80px;">唯一</span>
                                 </a>
                             </li>
                             <li>
@@ -231,18 +215,6 @@
                             <li>
                                 <a href="#">
                                     <input type="checkbox" class="js-check" x-text="最大字符长度" x-name="maxLength" x-value="1"><span style="display:inline-block;width:80px;">最大字符长度</span>
-                                    <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="正则" x-name="regexp" x-value="1"><span style="display:inline-block;width:80px;">正则</span>
-                                    <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="回调" x-name="callback" x-value="1"><span style="display:inline-block;width:80px;">回调</span>
                                     <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
                                 </a>
                             </li>
@@ -278,32 +250,6 @@
             <!-- page heading end-->
             <!--body wrapper start-->
             <div class="wrapper bang-wrapper">
-                <div class="row">
-                    <form class="form-horizontal adminex-form emao-zt-form" x-conf="%7B%22token%22:%7B%22age%22:%7B%22name%22:%22age%22,%22text%22:%22%E5%B9%B4%E9%BE%84%22,%22common%22:%5B%5D%7D,%22phone%22:%7B%22name%22:%22phone%22,%22text%22:%22%E6%89%8B%E6%9C%BA%E5%8F%B7%22,%22common%22:%7B%22minLength%22:%7B%22name%22:%22min%22,%22text%22:%22%E6%9C%80%E5%B0%8F%E5%80%BC%22,%22value%22:%223%22%7D%7D%7D%7D,%22id%22:3%7D" method="get" id="test">
-                        <div class="form-group">
-                            <label class="col-sm-2 col-sm-2 control-label">age</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="age">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 col-sm-2 control-label">phone</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="phone">
-                                <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 col-sm-2 control-label">Rounder</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control round-input">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <button class="emao-zt-submit">提交</button>
-                        </div>
-                    </form>
-                </div>
                 <div class="row">
                     <div class="mail-box">
                         <section class="mail-box-info">
@@ -463,7 +409,7 @@
     <!--script for editable table-->
     <script src="script/underscore.js"></script>
     <script src="script/validators.js"></script>
-    <script src="script/fn.js"></script>
+    <!-- // <script src="script/fn.js"></script> -->
     <script src="script/app.js">
     </script>
 </body>

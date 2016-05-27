@@ -131,29 +131,27 @@
                         <ul class="dropdown-menu text-left text-sm js-custom">
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="中文" x-name="onlyChinese"><span style="display:inline-block;width:80px;">中文</span>
+                                    <input type="checkbox" class="js-check" x-text="中文" x-name="zh"><span style="display:inline-block;width:80px;">中文</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="英文" x-name="onlyEnglish"><span style="display:inline-block;width:80px;">英文</span>
+                                    <input type="checkbox" class="js-check" x-text="英文" x-name="en"><span style="display:inline-block;width:80px;">英文</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="数字" x-name="onlyNumber"><span style="display:inline-block;width:80px;">数字</span>
+                                    <input type="checkbox" class="js-check" x-text="整数" x-name="int"><span style="display:inline-block;width:80px;">整数</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="最小值" x-name="min" x-value="1"><span style="display:inline-block;width:80px;">最小值</span>
-                                    <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                                    <input type="checkbox" class="js-check" x-text="唯一" x-name="unique"><span style="display:inline-block;width:80px;">唯一</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="最大值" x-name="max" x-value="1"><span style="display:inline-block;width:80px;">最大值</span>
-                                    <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
+                                    <input type="checkbox" class="js-check" x-text="非必填" x-name="非必填"><span style="display:inline-block;width:80px;">唯一</span>
                                 </a>
                             </li>
                             <li>
@@ -165,18 +163,6 @@
                             <li>
                                 <a href="#">
                                     <input type="checkbox" class="js-check" x-text="最大字符长度" x-name="maxLength" x-value="1"><span style="display:inline-block;width:80px;">最大字符长度</span>
-                                    <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="正则" x-name="regexp" x-value="1"><span style="display:inline-block;width:80px;">正则</span>
-                                    <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <input type="checkbox" class="js-check" x-text="回调" x-name="callback" x-value="1"><span style="display:inline-block;width:80px;">回调</span>
                                     <input type="text" class="form-control col-lg-1" style="display:inline;width:60px;float:none;height:20px;">
                                 </a>
                             </li>
@@ -206,178 +192,30 @@
             <!--body wrapper start-->
             <div class="wrapper bang-wrapper">
                 <div class="row">
-                    <form class="form-horizontal adminex-form emao-zt-form" x-conf="%7B%22token%22:%7B%22age%22:%7B%22name%22:%22age%22,%22text%22:%22%E5%B9%B4%E9%BE%84%22,%22common%22:%5B%5D%7D,%22phone%22:%7B%22name%22:%22phone%22,%22text%22:%22%E6%89%8B%E6%9C%BA%E5%8F%B7%22,%22common%22:%7B%22minLength%22:%7B%22name%22:%22min%22,%22text%22:%22%E6%9C%80%E5%B0%8F%E5%80%BC%22,%22value%22:%223%22%7D%7D%7D%7D,%22id%22:3%7D" method="get" id="test">
+                    <form class="form-horizontal adminex-form emao-zt-form" x-conf="%7B%22token%22:%7B%22mb%22:%7B%22name%22:%22mb%22,%22text%22:%22%E6%89%8B%E6%9C%BA%E5%8F%B7%22,%22common%22:%7B%22int%22:%7B%22name%22:%22int%22,%22text%22:%22%E6%95%B4%E6%95%B0%22,%22value%22:%22%22%7D,%22minLength%22:%7B%22name%22:%22minLength%22,%22text%22:%22%E6%9C%80%E5%B0%8F%E5%AD%97%E7%AC%A6%E9%95%BF%E5%BA%A6%22,%22value%22:%2211%22%7D,%22maxLength%22:%7B%22name%22:%22maxLength%22,%22text%22:%22%E6%9C%80%E5%A4%A7%E5%AD%97%E7%AC%A6%E9%95%BF%E5%BA%A6%22,%22value%22:%2211%22%7D%7D%7D,%22age%22:%7B%22name%22:%22age%22,%22text%22:%22%E5%B9%B4%E9%BE%84%22,%22common%22:%7B%22int%22:%7B%22name%22:%22int%22,%22text%22:%22%E6%95%B4%E6%95%B0%22,%22value%22:%22%22%7D%7D%7D,%22ext1%22:%7B%22name%22:%22ext1%22,%22text%22:%22%E6%89%A9%E5%B1%951%22,%22common%22:%7B%22zh%22:%7B%22name%22:%22zh%22,%22text%22:%22%E4%B8%AD%E6%96%87%22,%22value%22:%22%22%7D%7D%7D%7D,%22id%22:3%7D" method="get" id="test">
                         <div class="form-group">
-                            <label class="col-sm-2 col-sm-2 control-label">age</label>
+                            <label class="col-sm-2 col-sm-2 control-label">年龄</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="age">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 col-sm-2 control-label">phone</label>
+                            <label class="col-sm-2 col-sm-2 control-label">手机号</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="phone">
+                                <input type="text" class="form-control" name="mb">
                                 <span class="help-block">A block of help text that breaks onto a new line and may extend beyond one line.</span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 col-sm-2 control-label">Rounder</label>
+                            <label class="col-sm-2 col-sm-2 control-label">扩展</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control round-input">
+                                <input type="text" class="form-control round-input" name="ext1">
                             </div>
                         </div>
                         <div class="form-group">
-                            <button class="emao-zt-submit">提交</button>
+                            <div class="emao-zt-submit" value="提交" style="margin-left:100px;">提交</div>
                         </div>
                     </form>
-                </div>
-                <div class="row">
-                    <div class="mail-box">
-                        <section class="mail-box-info">
-                            <header class="header">
-                                <div class="btn-toolbar">
-                                    <!-- <div class="btn-group select standard-entry">
-                                        <button data-toggle="dropdown" class="btn btn-primary btn-sm dropdown-toggle">
-                                            <span style="width: 70px;" class="dropdown-label">标准对象</span>
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu text-left text-sm">
-                                            <li><a href="#">手机号</a></li>
-                                            <li><a href="#">姓名</a></li>
-                                            <li><a href="#">婚否</a></li>
-                                            <li><a href="#">要求</a></li>
-                                        </ul>
-                                    </div> -->
-                                    <a href="javascript:;" class="btn btn-danger  btn-sm" id="submitform">提交</a>
-                                </div>
-                            </header>
-                            <section class="pannel">
-                                <div class="form-group standard-entry">
-                                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">标准对象</label>
-                                    <div class="col-lg-10">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox1" name="mb" x-text="手机号"> 手机号
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox2" value="option2" name="age" x-text="年龄"> 年龄
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="inlineCheckbox3" value="option3" name="name" x-text="姓名"> 姓名
-                                        </label>
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="pannel">
-                                <div class="form-group standard-entry">
-                                    <label class="col-sm-2 control-label col-lg-2" for="inputSuccess">扩展对象</label>
-                                    <div class="col-lg-10">
-                                        <div>
-                                            <div class="form-group" style="margin-bottom:-30px;">
-                                                <div class="col-lg-2">
-                                                    <input type="text" class="form-control" id="inputWarning">
-                                                </div>
-                                            </div>
-                                            <button class="btn btn-primary" id="addExt" type="button">增加属性</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            <section class="mail-list">
-                                <ul class="list-group ">
-                                </ul>
-                            </section>
-                        </section>
-                    </div>
-                </div>
-                <div class="row">
-                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="bang-alert" class="modal fade">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                                    <h4 class="modal-title"></h4>
-                                </div>
-                                <div class="modal-body">
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger"> Ok</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="bang-edit" class="modal fade">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                                    <h4 class="modal-title"></h4>
-                                </div>
-                                <div class="modal-body">
-                                    <div>
-                                        <form class="form-horizontal" role="form">
-                                            <div class="form-group">
-                                                <label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">姓名</label>
-                                                <div class="col-lg-10">
-                                                    <input type="email" class="form-control" id="inputEmail1" placeholder="Email">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">手机号</label>
-                                                <div class="col-lg-10">
-                                                    <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
-                                                    <!--<p class="help-block">Example block-level help text here.</p>-->
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">身份证号</label>
-                                                <div class="col-lg-10">
-                                                    <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
-                                                    <!--<p class="help-block">Example block-level help text here.</p>-->
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">品牌</label>
-                                                <div class="col-lg-10">
-                                                    <select class="form-control m-bot15" id="exampleInputPassword23" style="position:relative;top:8px;">
-                                                        <option>Option 1</option>
-                                                        <option>Option 2</option>
-                                                        <option>Option 3</option>
-                                                    </select>
-                                                    <!--<p class="help-block">Example block-level help text here.</p>-->
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">下订车型</label>
-                                                <div class="col-lg-10">
-                                                    <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
-                                                    <!--<p class="help-block">Example block-level help text here.</p>-->
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">经销商名称</label>
-                                                <div class="col-lg-10">
-                                                    <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
-                                                    <!--<p class="help-block">Example block-level help text here.</p>-->
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-lg-offset-2 col-lg-10">
-                                                    <button type="submit" class="btn btn-primary">提交</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger"> Ok</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" id="loading-container" style="text-align:center;">
                 </div>
             </div>
             <!--body wrapper end-->
@@ -395,13 +233,12 @@
     <script src="js/jquery-migrate-1.2.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/modernizr.min.js"></script>
+    <script src="script/underscore.js"></script>
     <!-- END JAVASCRIPTS -->
     <!--script for editable table-->
-    <script src="script/underscore.js"></script>
     <script src="script/validators.js"></script>
+    <script src="script/http.js"></script>
     <script src="script/fn.js"></script>
-    <script src="script/app.js">
-    </script>
 </body>
 
 </html>
